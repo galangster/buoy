@@ -113,8 +113,14 @@ def glyph_metrics(font: TTFont, names=None, area: bool = True):
 def simplify_area_change(font: TTFont, names):
     """Push each glyph through pathops.simplify and report the area change.
 
-    A rounded contour that intersects itself loses area when simplified, so a
-    change above the gate means the clamp failed.
+    A contour that intersects itself loses area when simplified, so a nonzero
+    value means the outline overlaps itself somewhere.
+
+    ``skia-pathops`` 0.9 *returns* the simplified path and takes no output pen.
+    Calling it with a pen raises ``TypeError``. This function used to make that
+    call inside a bare ``except Exception: continue``, so every glyph was
+    skipped and the caller's gate reported zero offenders for any input at all.
+    Do not reintroduce a blanket except here: it makes the gate unable to fail.
     """
     import pathops
 
@@ -128,18 +134,10 @@ def simplify_area_change(font: TTFont, names):
             glyph_set[name].draw(path.getPen(glyphSet=glyph_set))
         except Exception:
             continue
-        try:
-            before = abs(path.area)
-        except Exception:
-            continue
-        simplified = pathops.Path()
-        try:
-            pathops.simplify(path, simplified.getPen(), fix_winding=True)
-            after = abs(simplified.area)
-        except Exception:
-            continue
+        before = abs(path.area)
         if before <= 0:
             continue
+        after = abs(pathops.simplify(path, fix_winding=True).area)
         out[name] = 100.0 * (after - before) / before
     return out
 
@@ -234,11 +232,35 @@ def compare(flat_dir: Path, variant_dir: Path, weight: str, gate: float = 0.5,
         if var_all[n]["points"] != flat_all[n]["points"]
     )
 
-    self_int = simplify_area_change(var, shared_all)
+    # Two corrections against a gate that could not fail.
+    #
+    # Scope. ``RoundCornerFilter.filter`` returns early on a glyph with no
+    # contours, so a composite is shipped exactly as Inter drew it. Inter has
+    # ~295 composites whose components overlap, and their simplify delta runs
+    # to several hundred percent. Measuring them here buried the contour
+    # glyphs the filter is actually answerable for. Composites are counted and
+    # reported, not gated.
+    #
+    # Direction. An overlap shows up as a larger absolute delta, so compare
+    # magnitudes against the flat instance. A signed comparison flags a glyph
+    # whose inherited overlap the rounding *reduced*.
+    simple = [
+        n
+        for n in shared_all
+        if not var["glyf"][n].isComposite()
+        and not flat["glyf"][n].isComposite()
+    ]
+    self_int = simplify_area_change(var, simple)
+    flat_int = simplify_area_change(flat, simple)
     offenders = sorted(
-        ((n, v) for n, v in self_int.items() if abs(v) > gate),
-        key=lambda kv: -abs(kv[1]),
+        (
+            (n, round(abs(v) - abs(flat_int[n]), 4))
+            for n, v in self_int.items()
+            if n in flat_int and abs(v) - abs(flat_int[n]) > gate
+        ),
+        key=lambda kv: -kv[1],
     )
+    already_overlapping = sum(1 for v in flat_int.values() if abs(v) > gate)
 
     return {
         "weight": weight,
@@ -253,6 +275,9 @@ def compare(flat_dir: Path, variant_dir: Path, weight: str, gate: float = 0.5,
         "glyphs_compared": len(shared_all),
         "glyphs_touched": touched,
         "odd_delta_glyphs": odd,
+        "self_intersect_glyphs_gated": len(self_int),
+        "self_intersect_composites_skipped": len(shared_all) - len(simple),
+        "self_intersect_flat_already_overlapping": already_overlapping,
         "self_intersect_gate_pct": gate,
         "self_intersect_offenders": offenders[:25],
         "self_intersect_offender_count": len(offenders),
