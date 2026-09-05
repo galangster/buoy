@@ -36,7 +36,7 @@ TOOL_PACKAGES = (
 
 STACKED_NOTICE = [
     "Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)",
-    "Copyright (c) 2026 The Creative Company (https://github.com/galangster/buoy)",
+    f"Copyright (c) 2026 {params.MANUFACTURER} ({params.VENDOR_URL})",
     "",
     f"{params.FAMILY} is a modified version of Inter. Inter is a trademark of",
     "Rasmus Andersson and no word of it appears in this family's name.",
@@ -55,6 +55,19 @@ def write_fontlog(dist: Path):
     new one.
     """
     text = (HERE / "FONTLOG.txt").read_text()
+    # The newest ChangeLog entry has to name the version being sealed. Bumping
+    # VERSION and forgetting the entry would otherwise ship a NOTICE.md and a
+    # FONTLOG.txt that disagree about which release this is, and the manifest
+    # would hash the disagreement without reading it.
+    body = text.split("\nChangeLog\n", 1)[-1]
+    entries = [line for line in body.splitlines() if line.strip()]
+    # the first line after the heading is its underline rule
+    newest = next((line for line in entries if set(line.strip()) != {"-"}), "")
+    if params.VERSION not in newest:
+        raise SystemExit(
+            f"FONTLOG.txt has no entry for {params.VERSION}; its newest entry "
+            f"is {newest.strip()!r}. Add one before sealing."
+        )
     (dist / "FONTLOG.txt").write_text(text)
     return text
 
@@ -159,8 +172,8 @@ Nothing else is changed. No outline is redrawn by hand.
 Built on {date.today().isoformat()} from the toolchain in this repository,
 {params.VENDOR_URL}. Tool versions:
 
-""" + "".join(f"- {k} {v}\n" for k, v in sorted(versions.items())) + """
-"""+f"Gates and proof: `proof/{params.PROOF_DIR.name}/`."+"""
+""" + "".join(f"- {k} {v}\n" for k, v in sorted(versions.items())) + f"""
+Gates and proof: `{params.PROOF_DIR.relative_to(params.PKG)}/`.
 """
     (dist / "NOTICE.md").write_text(text)
 

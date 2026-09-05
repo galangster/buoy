@@ -49,7 +49,7 @@ PARAGRAPH = (
     "arc. The radius is a ratio of the measured stem of each weight, so the "
     "terminals stay semicircular at Regular and at Medium. Nothing is "
     "redrawn by hand, so the kerning and the tabular figures come along."
-)  # 40 words
+)
 
 
 def variant_label(variant: str) -> str:

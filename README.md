@@ -139,7 +139,9 @@ Linux. Still open:
 
 - Windows rendering (DirectWrite) is unproved. The fonts are unhinted with
   `gasp` set to grayscale and symmetric smoothing, which is the correct
-  unhinted setting; a screenshot pass on Windows 11 is the remaining check.
+  unhinted setting, and `proof/2026-09-05-v1.002/render-risk.md` measures the
+  rounding's cost at 11 to 18 px and finds it does not thin stems. A
+  screenshot pass on Windows 11 is still the remaining check.
 - No hand pass. The identity glyphs, bone-effect blunting at stem ends and
   terminal overshoot are all still mechanical.
 - No italic, no display cut, no variable font. At two weights, two static

@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Buoy: does the fallback shift the text?</title>
+<style>
+  @font-face { font-family: "Buoy"; font-weight: 400;
+    src: url(../../release/v1.002/Buoy-Regular.woff2) format("woff2"); font-display: block; }
+
+  /* the shipped fallback, with the overrides tools/fallback.py generated */
+  @font-face { font-family: "Buoy Fallback"; src: local(Arial); font-weight: 400 500;
+    size-adjust: 107.50%; ascent-override: 90.12%; descent-override: 22.44%;
+    line-gap-override: 0.00%; }
+
+  /* the control: the same physical face, no overrides */
+  @font-face { font-family: "Naive Fallback"; src: local(Arial); font-weight: 400 500; }
+
+  body { margin: 0; font: 16px/1.55 "Buoy", sans-serif; padding: 32px; }
+  .probe { position: absolute; visibility: hidden; top: 0; left: 0; width: 640px; font-size: 16px; }
+  .probe p { margin: 0; }
+  .line { white-space: nowrap; display: inline-block; }
+  table { border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: 16px; }
+  th, td { border: 1px solid #ccc; padding: 6px 12px; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  h1 { font-size: 20px; font-weight: 500; }
+  p.note { max-width: 60ch; color: #555; }
+</style></head>
+<body>
+<h1>Does the fallback shift the text when Buoy arrives?</h1>
+<p class="note">Three renderings of the same paragraph at 16 px: Buoy itself, the shipped
+<code>Buoy Fallback</code> (local Arial plus the generated overrides), and a naive Arial fallback
+with no overrides. A fallback that matches Buoy causes no reflow when the real font swaps in.
+The width row uses a non-wrapping line; the height rows use a 640 px column.</p>
+<table id="out"><tr><td>measuring…</td></tr></table>
+<script>
+const TEXT = "A rounded sans in two weights, derived from Inter. Every terminal is a semicircle and every figure lines up, so a column of numbers stays a column. Raise $1,250,000 by 2026-10-04 at 14:32, or close at 0.0042 SOL. The quick brown fox jumps over the lazy dog, twice, without complaint or hesitation.";
+const FAMS = { real: '"Buoy"', shipped: '"Buoy Fallback"', naive: '"Naive Fallback"' };
+
+function probe(fam, lineHeight) {
+  const d = document.createElement('div');
+  d.className = 'probe';
+  d.style.lineHeight = lineHeight;
+  d.style.fontFamily = fam;
+  d.innerHTML = '<p>' + TEXT + '</p><span class="line">' + TEXT.slice(0, 90) + '</span>';
+  document.body.appendChild(d);
+  const r = { block: d.querySelector('p').getBoundingClientRect().height,
+              line: d.querySelector('.line').getBoundingClientRect().width };
+  d.remove();
+  return r;
+}
+
+async function measure() {
+  for (const f of Object.values(FAMS)) await document.fonts.load('16px ' + f);
+  await document.fonts.ready;
+  const out = {};
+  for (const [k, fam] of Object.entries(FAMS)) {
+    out[k] = { fixed: probe(fam, '1.55'), normal: probe(fam, 'normal') };
+  }
+  return out;
+}
+
+const pct = (a, b) => ((a - b) / b * 100);
+const fmt = (v) => (v > 0 ? '+' : '') + v.toFixed(2) + '%';
+
+measure().then(r => {
+  const rows = [
+    ['line width, no wrap', 'fixed', 'line', 'px'],
+    ['block height, line-height 1.55', 'fixed', 'block', 'px'],
+    ['block height, line-height normal', 'normal', 'block', 'px'],
+  ];
+  let html = '<tr><th>measurement</th><th>Buoy</th><th>shipped fallback</th>'
+           + '<th>vs Buoy</th><th>naive Arial</th><th>vs Buoy</th></tr>';
+  for (const [label, mode, key] of rows) {
+    const a = r.real[mode][key], b = r.shipped[mode][key], c = r.naive[mode][key];
+    html += `<tr><td>${label}</td><td>${a.toFixed(1)}</td><td>${b.toFixed(1)}</td>`
+          + `<td>${fmt(pct(b, a))}</td><td>${c.toFixed(1)}</td><td>${fmt(pct(c, a))}</td></tr>`;
+  }
+  document.getElementById('out').innerHTML = html;
+  window.__result = r;
+});
+</script>
+</body></html>
