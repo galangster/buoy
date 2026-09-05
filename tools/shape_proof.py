@@ -8,6 +8,8 @@ default is still reachable through its reverse toggle.
 
     python tools/shape_proof.py                       # the release TTFs
     python tools/shape_proof.py --fonts a.woff2 b.woff2 --out shaping-woff2.md
+    python tools/shape_proof.py --fonts build/lane/subset/*.woff2 \
+        --out-dir build/lane --out shaping-subset.md --no-outline-proof
 """
 
 from __future__ import annotations
@@ -215,6 +217,12 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fonts", nargs="*", default=None)
     parser.add_argument("--out", default="shaping.md")
+    parser.add_argument(
+        "--out-dir", type=Path, default=params.PROOF_DIR,
+        help="where --out is written; defaults to the sealed proof directory, "
+             "so a lane proof has to name its own directory rather than "
+             "landing in the committed one by accident",
+    )
     parser.add_argument("--no-outline-proof", action="store_true")
     args = parser.parse_args(argv)
 
@@ -264,7 +272,7 @@ def main(argv=None):
                 )
         lines.append("")
 
-    out_path = params.PROOF_DIR / args.out
+    out_path = args.out_dir / args.out
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text("\n".join(lines) + "\n")
     print(f"wrote {out_path}  failures={failures}")
