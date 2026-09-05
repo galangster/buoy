@@ -4,8 +4,10 @@ fontmake writes the source family's identity into every binary, so a build
 straight out of ``build.py release`` still calls itself Inter, keeps Inter's
 unique font identifier and Inter's vendor ID. An OS font cache would then serve
 these files as Inter. This module rewrites the identity, sets the tables the
-gates read, and refuses to write a font whose vertical metrics have moved away
-from the flat instance it was interpolated from.
+gates read, and refuses to write a font whose *line box* has moved away from the
+flat instance it was interpolated from. The *clipping* box, `usWinAscent` and
+`usWinDescent`, is a separate thing and is raised here to hold the family's real
+ink, which Inter's own numbers do not.
 
     python tools/finish.py
     python tools/finish.py --weights Regular
@@ -14,9 +16,11 @@ from the flat instance it was interpolated from.
 from __future__ import annotations
 
 import argparse
+import math
 import sys
 from pathlib import Path
 
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont, newTable
 from fontTools.ttLib.tables import ttProgram
 
@@ -39,14 +43,28 @@ SMART_DROPOUT = b"\xb8\x01\xff\x85\xb0\x04\x8d"
 # fsSelection bits, OS/2 spec.
 BIT_BOLD = 5
 BIT_REGULAR = 6
+BIT_USE_TYPO_METRICS = 7
 
-# Vertical metrics that must not move. fontkit reads hhea, not sTypo, so
-# next/font's size-adjust maths depends on the hhea trio surviving.
-VERTICAL = (
+# The line box. It must not move: fontkit reads hhea, not sTypo, so next/font's
+# size-adjust maths depends on the hhea trio surviving, and every capture taken
+# so far measures this leading.
+VERTICAL_PINNED = (
     ("hhea", "ascent"), ("hhea", "descent"), ("hhea", "lineGap"),
     ("OS/2", "sTypoAscender"), ("OS/2", "sTypoDescender"),
-    ("OS/2", "sTypoLineGap"), ("OS/2", "usWinAscent"), ("OS/2", "usWinDescent"),
+    ("OS/2", "sTypoLineGap"),
 )
+
+# The clipping box, which is a different thing. Windows GDI cuts ink outside
+# usWinAscent/usWinDescent, and Inter ships 1984/494 while its own ink reaches
+# 2272/668, so the tall accented capitals and the comma-below capitals are
+# already clipped there. Rounding makes it worse: a cedilla's corner arc pushes
+# `Gcommaaccent` and eighteen siblings from -493 down past -625, and those are
+# inside the shipping subset. Raising the win box only widens the region the
+# rasteriser is allowed to paint. It moves no line box, because bit 7 below
+# tells every renderer that reads it to lay out from sTypo instead.
+VERTICAL_WIN = (("OS/2", "usWinAscent"), ("OS/2", "usWinDescent"))
+
+VERTICAL = VERTICAL_PINNED + VERTICAL_WIN
 
 
 def name_records(weight: str) -> dict[int, str]:
@@ -84,17 +102,73 @@ def read_vertical(font: TTFont) -> dict[str, int]:
     return {f"{tag}.{attr}": getattr(font[tag], attr) for tag, attr in VERTICAL}
 
 
-def finish(weight: str, raw_path: Path, flat_path: Path, out_path: Path):
+def ink_box(path: Path) -> tuple[int, int]:
+    """``(yMax, abs(yMin))`` over every glyph in one font, rounded outward.
+
+    ``head`` alone is not enough. A composite whose component carries a scale
+    draws outside the integer box fontTools recorded for it, and this family has
+    283 of them, so the bounds are taken from the glyph set and every fraction
+    is rounded away from the baseline.
+    """
+    font = TTFont(path, recalcTimestamp=False)
+    glyphs = font.getGlyphSet()
+    top, bottom = float(font["head"].yMax), float(font["head"].yMin)
+    for name in font.getGlyphOrder():
+        pen = BoundsPen(glyphs)
+        glyphs[name].draw(pen)
+        if pen.bounds:
+            top = max(top, pen.bounds[3])
+            bottom = min(bottom, pen.bounds[1])
+    font.close()
+    return math.ceil(top), math.ceil(-bottom)
+
+
+def family_win_box(paths, floor: tuple[int, int]) -> tuple[int, int]:
+    """One clipping box for the whole family, never below ``floor``.
+
+    fontbakery's `family/vertical_metrics` requires every file in a family to
+    publish the same numbers, so the box is the maximum across the weights, not
+    each weight's own ink. ``floor`` is the flat instance's box, which keeps a
+    future weight with shallower ink from *lowering* what Inter already shipped.
+    """
+    ascent, descent = floor
+    for path in paths:
+        top, bottom = ink_box(path)
+        ascent, descent = max(ascent, top), max(descent, bottom)
+    return ascent, descent
+
+
+def finish(weight: str, raw_path: Path, flat_path: Path, out_path: Path,
+           win_box: tuple[int, int] | None = None):
     style = params.STYLES[weight]
     font = TTFont(raw_path, recalcTimestamp=False)
     flat = TTFont(flat_path, recalcTimestamp=False)
 
     # -- vertical metrics, asserted before anything is written ------------
     got, want = read_vertical(font), read_vertical(flat)
-    drift = {k: (want[k], got[k]) for k in want if want[k] != got[k]}
+    drift = {
+        f"{tag}.{attr}": (want[f"{tag}.{attr}"], got[f"{tag}.{attr}"])
+        for tag, attr in VERTICAL_PINNED
+        if want[f"{tag}.{attr}"] != got[f"{tag}.{attr}"]
+    }
     if drift:
         raise SystemExit(
             f"{weight}: vertical metrics moved from the flat instance: {drift}"
+        )
+
+    floor = (want["OS/2.usWinAscent"], want["OS/2.usWinDescent"])
+    if win_box is None:
+        win_box = family_win_box([raw_path], floor)
+    if win_box[0] < floor[0] or win_box[1] < floor[1]:
+        raise SystemExit(
+            f"{weight}: win box {win_box} is below the flat instance's {floor}; "
+            "the clipping box may be raised, never lowered"
+        )
+    ink = ink_box(raw_path)
+    if ink[0] > win_box[0] or ink[1] > win_box[1]:
+        raise SystemExit(
+            f"{weight}: ink reaches {ink} but the win box is {win_box}; "
+            "Windows GDI would clip it"
         )
 
     # -- name table --------------------------------------------------------
@@ -128,7 +202,13 @@ def finish(weight: str, raw_path: Path, flat_path: Path, out_path: Path):
         selection |= 1 << BIT_REGULAR
     else:
         selection &= ~(1 << BIT_REGULAR)
+    # Load-bearing once the win box is wider than sTypo: bit 7 is what tells a
+    # renderer to take its line box from sTypo and read usWin* as a clipping
+    # box only. Inter already sets it; it is set here rather than inherited,
+    # because raising usWin* without it would change leading on Windows.
+    selection |= 1 << BIT_USE_TYPO_METRICS
     os2.fsSelection = selection
+    os2.usWinAscent, os2.usWinDescent = win_box
     font["head"].fontRevision = params.FONT_REVISION
     # One underline for the whole family, not one per weight.
     font["post"].underlineThickness = params.UNDERLINE_THICKNESS
@@ -157,7 +237,9 @@ def finish(weight: str, raw_path: Path, flat_path: Path, out_path: Path):
     return {
         "weight": weight,
         "path": out_path,
-        "vertical": got,
+        "vertical": read_vertical(font),
+        "ink": ink,
+        "win_box": win_box,
         "fsSelection": os2.fsSelection,
         "underlineThickness": font["post"].underlineThickness,
         "usWeightClass": os2.usWeightClass,
@@ -170,22 +252,44 @@ def main(argv=None):
     parser.add_argument("--weights", default=",".join(params.RELEASE_WEIGHTS))
     args = parser.parse_args(argv)
 
-    rows = []
-    for weight in args.weights.split(","):
-        weight = weight.strip()
+    weights = [w.strip() for w in args.weights.split(",")]
+
+    def sources(weight: str) -> tuple[Path, Path]:
         raw = params.RAW_DIR / params.flat_name(weight)
         flat = params.FLAT_DIR / params.flat_name(weight)
         for path in (raw, flat):
             if not path.exists():
                 raise SystemExit(f"missing {path}; run build.py release first")
-        rows.append(finish(weight, raw, flat, params.RELEASE_DIR / params.ttf_name(weight)))
+        return raw, flat
+
+    # Always the whole family, never `--weights`. The clipping box is a family
+    # property, so finishing one weight on its own must not give it a narrower
+    # box than the sibling it will ship beside.
+    family_raw, family_flat = zip(*(sources(w) for w in params.RELEASE_WEIGHTS))
+    floor = (
+        max(TTFont(p, recalcTimestamp=False, lazy=True)["OS/2"].usWinAscent
+            for p in family_flat),
+        max(TTFont(p, recalcTimestamp=False, lazy=True)["OS/2"].usWinDescent
+            for p in family_flat),
+    )
+    win_box = family_win_box(family_raw, floor)
+
+    rows = []
+    for weight in weights:
+        raw, flat = sources(weight)
+        rows.append(finish(weight, raw, flat,
+                           params.RELEASE_DIR / params.ttf_name(weight), win_box))
 
     for row in rows:
         print(f"{row['weight']:8s} -> {row['path'].name}")
         print(f"  usWeightClass={row['usWeightClass']} "
-              f"fsSelection={row['fsSelection']:#010b}")
-        print("  vertical metrics equal the flat instance: " +
-              " ".join(f"{k.split('.')[-1]}={v}" for k, v in row["vertical"].items()))
+              f"fsSelection={row['fsSelection']:#010b} "
+              f"USE_TYPO_METRICS={bool(row['fsSelection'] & (1 << BIT_USE_TYPO_METRICS))}")
+        print("  line box equals the flat instance: " +
+              " ".join(f"{tag.split('/')[0]}.{attr}={row['vertical'][f'{tag}.{attr}']}"
+                       for tag, attr in VERTICAL_PINNED))
+        print(f"  win box {row['win_box']} contains the family ink; "
+              f"this weight reaches {row['ink']}")
     return 0
 
 
