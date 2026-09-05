@@ -39,7 +39,7 @@ CHROME = Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 PORT = 8787
 
 NUMERALS = "$1,000,000  4,213  +12.5%  0.0042 SOL  2026-09-04 14:32"
-STATEMENT = "A backable company publishes its decisions before it makes them."
+STATEMENT = "Every terminal is a semicircle. Every figure lines up."
 
 
 def buoy(weight: str) -> Path:

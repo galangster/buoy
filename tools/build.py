@@ -1,4 +1,4 @@
-"""Drive fontmake for the Backable rounding sweep and for the v1 release.
+"""Drive fontmake for the Buoy rounding sweep and for the v1 release.
 
 Interpolation runs first and rounding second. Masters that differ by one corner
 stop being compatible, so the filter must never see a master.

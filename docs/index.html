@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buoy</title>
+<meta name="description" content="Buoy is a rounded sans in two weights, derived from Inter. Free under the SIL Open Font License.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f6f1e6'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%230b0b0b' stroke-width='5'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Buoy">
+<meta property="og:description" content="A rounded sans in two weights. Every terminal is a semicircle. Every figure lines up.">
+<meta property="og:url" content="https://galangster.github.io/buoy/">
+<meta property="og:image" content="https://galangster.github.io/buoy/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  @font-face { font-family: "Buoy"; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/Buoy-Regular.woff2) format("woff2"); }
+  @font-face { font-family: "Buoy"; font-weight: 500; font-style: normal; font-display: swap; src: url(fonts/Buoy-Medium.woff2) format("woff2"); }
+  :root { --paper: #f6f1e6; --ink: #0b0b0b; --soft: #5f5f5f; --line: #d9d3c6; --accent: #e4573d; }
+  * { box-sizing: border-box; }
+  html { color-scheme: light; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Buoy", "Helvetica Neue", Arial, sans-serif; font-weight: 400; font-synthesis: none; -webkit-font-smoothing: antialiased; line-height: 1.5; }
+  a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 0.14em; }
+  a:hover { color: var(--accent); }
+  main { max-width: 1120px; margin: 0 auto; padding: 48px 32px 96px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap; }
+  header nav { display: flex; gap: 24px; font-size: 16px; }
+  .brand { font-weight: 500; font-size: 22px; }
+  .wordmark { font-weight: 500; font-size: clamp(120px, 26vw, 300px); line-height: 0.9; letter-spacing: -0.035em; margin: 40px 0 8px -0.04em; }
+  .wordmark span { color: var(--accent); }
+  .statement { font-size: clamp(24px, 3.2vw, 36px); line-height: 1.25; max-width: 24ch; margin: 24px 0 0; text-wrap: balance; }
+  .meta { display: flex; gap: 32px; flex-wrap: wrap; margin: 32px 0 0; color: var(--soft); font-size: 16px; font-variant-numeric: tabular-nums; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 32px 0 0; }
+  .cta a { display: inline-block; padding: 12px 20px; border: 1.5px solid var(--ink); border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 16px; }
+  .cta a.primary { background: var(--ink); color: var(--paper); }
+  .cta a.primary:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  section { border-top: 1.5px solid var(--ink); margin-top: 72px; padding-top: 20px; }
+  h2 { font-size: 16px; font-weight: 500; margin: 0 0 24px; color: var(--soft); }
+  .weights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .weights div { font-size: clamp(40px, 6vw, 72px); line-height: 1.05; letter-spacing: -0.02em; }
+  .weights small { display: block; font-size: 16px; letter-spacing: 0; color: var(--soft); margin-top: 8px; }
+  .sample { font-size: clamp(28px, 4.4vw, 52px); line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 24px; text-wrap: pretty; }
+  .toggles { display: flex; gap: 10px 22px; flex-wrap: wrap; font-size: 16px; }
+  .toggles label { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; }
+  .toggles code { font-family: inherit; font-variant-numeric: tabular-nums; color: var(--soft); }
+  .numerals { font-size: clamp(40px, 8vw, 96px); letter-spacing: -0.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .column { font-size: 24px; font-variant-numeric: tabular-nums; line-height: 1.4; margin-top: 12px; }
+  .column .up { color: #12805a; }
+  .column .down { color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .grid span { padding: 12px 0; text-align: center; font-size: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .grid span.alt { font-feature-settings: "cv02", "cv06", "ss03"; color: var(--soft); }
+  .prose { max-width: 64ch; font-size: 18px; }
+  .prose p { margin: 0 0 16px; text-wrap: pretty; }
+  pre { background: #fff; border: 1px solid var(--line); padding: 16px 20px; overflow-x: auto; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+  footer { margin-top: 72px; padding-top: 20px; border-top: 1.5px solid var(--ink); color: var(--soft); font-size: 15px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  @media (max-width: 640px) { .weights { grid-template-columns: 1fr; } main { padding: 32px 20px 64px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="brand">Buoy</div>
+    <nav>
+      <a href="#download">Download</a>
+      <a href="#use">Use it</a>
+      <a href="https://github.com/galangster/buoy">GitHub</a>
+    </nav>
+  </header>
+
+  <h1 class="wordmark">Bu<span>o</span>y</h1>
+  <p class="statement">A rounded sans in two weights. Every terminal is a semicircle. Every figure lines up.</p>
+  <div class="meta">
+    <span>Regular 400 · Medium 500</span>
+    <span>Version 1.002</span>
+    <span>SIL Open Font License 1.1</span>
+  </div>
+  <div class="cta" id="download">
+    <a class="primary" href="https://github.com/galangster/buoy/releases/latest">Download the fonts</a>
+    <a href="https://github.com/galangster/buoy/tree/main/release/v1.002">Browse the release</a>
+  </div>
+
+  <section>
+    <h2>Two weights</h2>
+    <div class="weights">
+      <div style="font-weight: 400;">Regular<small>400, for reading</small></div>
+      <div style="font-weight: 500;">Medium<small>500, for headlines and labels</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Features, live</h2>
+    <p class="sample" id="sample">The quick brown fox jumps over the lazy dog. Raise $1,250,000 by 2026-10-04 at 14:32, or close at 0.0042 SOL. “Quotes, commas, and 4 spurless u’s.” Il1O0</p>
+    <div class="toggles">
+      <label><input type="checkbox" data-tag="tnum"> <code>tnum</code> tabular figures</label>
+      <label><input type="checkbox" data-tag="zero"> <code>zero</code> slashed zero</label>
+      <label><input type="checkbox" data-tag="ss02"> <code>ss02</code> I l ß 0 disambiguation</label>
+      <label><input type="checkbox" data-tag="cv02"> <code>cv02</code> closed four (Inter’s)</label>
+      <label><input type="checkbox" data-tag="cv06"> <code>cv06</code> spurred u (Inter’s)</label>
+      <label><input type="checkbox" data-tag="ss03"> <code>ss03</code> sharp quotes (Inter’s)</label>
+      <label><input type="checkbox" data-weight="500"> Medium</label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tabular figures</h2>
+    <div class="numerals">0123456789</div>
+    <div class="column">
+      <div>$1,250,000.00</div>
+      <div>$980,410.75</div>
+      <div class="up">+ $269,589.25</div>
+      <div class="down">− $12,004.10</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Character set, Latin</h2>
+    <div class="grid" id="grid"></div>
+    <p class="prose" style="margin-top: 16px; color: var(--soft); font-size: 15px;">Grey glyphs show the three alternates that Buoy promotes to default, toggled back to Inter’s drawing: the open four, the spurless u, and the round quotes and commas.</p>
+  </section>
+
+  <section id="use">
+    <h2>Use it on the web</h2>
+    <div class="prose">
+      <p>Two files, about 34 KB each. Latin subset. Kerning, tabular and proportional figures, fractions, the slashed zero, the I and l disambiguation set and the three alternate toggles are all kept; Inter’s other stylistic sets and character variants are not in the web build. Copy them from <code>docs/fonts</code> or the release, then:</p>
+    </div>
+<pre>@font-face {
+  font-family: "Buoy";
+  font-weight: 400;
+  src: url(fonts/Buoy-Regular.woff2) format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Buoy";
+  font-weight: 500;
+  src: url(fonts/Buoy-Medium.woff2) format("woff2");
+  font-display: swap;
+}
+body { font-family: "Buoy", "Buoy Fallback", sans-serif; font-synthesis: none; }
+.amount { font-variant-numeric: tabular-nums; }
+.hash   { font-feature-settings: "tnum", "zero", "ss02"; }</pre>
+    <div class="prose">
+      <p>The <a href="fallback.css">fallback stylesheet</a> declares a metric-matched “Buoy Fallback” over Arial and Helvetica Neue, so text does not shift when the real font arrives.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it is made</h2>
+    <div class="prose">
+      <p>Buoy is Inter 4.1 with every hard corner replaced by a tangent circular arc. The radius is a ratio of the measured stem of each weight, 0.50 outside and 0.30 inside, so terminals stay semicircles at both weights. Nothing is redrawn by hand.</p>
+      <p>Three of Inter’s alternates become the default: the open four, the spurless u, and the round quotes and commas. Their feature tags still work, now as reverse toggles.</p>
+      <p>Inter’s kerning, tabular figures, slashed zero and vertical metrics come along unchanged. The toolchain, the gates it passes and the proofs are all in the repository.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Buoy © 2026 The Creative Company. A modified version of Inter, © 2016 The Inter Project Authors. SIL Open Font License 1.1.</span>
+    <a href="https://github.com/galangster/buoy">github.com/galangster/buoy</a>
+  </footer>
+</main>
+<script>
+  (function () {
+    var sample = document.getElementById('sample');
+    var boxes = document.querySelectorAll('.toggles input');
+    function apply() {
+      var tags = [];
+      boxes.forEach(function (b) {
+        if (b.dataset.tag && b.checked) tags.push('"' + b.dataset.tag + '"');
+        if (b.dataset.weight) sample.style.fontWeight = b.checked ? b.dataset.weight : '400';
+      });
+      sample.style.fontFeatureSettings = tags.length ? tags.join(', ') : 'normal';
+    }
+    boxes.forEach(function (b) { b.addEventListener('change', apply); });
+    apply();   // browsers restore checkbox state across a reload; start in sync
+    var grid = document.getElementById('grid');
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&?!@#%$€£¥.,;:“”‘’';
+    var alts = { '4': 1, 'u': 1, '“': 1, '”': 1, '‘': 1, '’': 1, ',': 1, ';': 1 };
+    var html = '';
+    for (var i = 0; i < chars.length; i++) {
+      var c = chars[i];
+      html += '<span>' + c + '</span>';
+      if (alts[c]) html += '<span class="alt">' + c + '</span>';
+    }
+    grid.innerHTML = html;
+  })();
+</script>
+</body>
+</html>

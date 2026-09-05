@@ -169,23 +169,33 @@ def cases(font: Path):
         tnum,
     ))
 
-    for feature, text, expect in (
+    # `baseline` is the feature string the comparison is made against. It is
+    # empty for a feature that is off by default. Two are not: `calt` is on, so
+    # it is proved by switching it OFF, and `case` is proved against `-calt`,
+    # because calt already applies the case forms next to a capital and the
+    # feature would otherwise look like it does nothing.
+    for feature, baseline, text, expect in (
         # Inter names the slashed zero `zero.slash`.
-        ("+zero", "0", "zero.slash"),
-        ("+ss02", "Il1O0", None),
-        ("+cv02", "4", "four.ss01"),
-        ("+cv06", "u", "u.1"),
-        ("+ss03", ",;'", None),
+        ("+zero", "", "0", "zero.slash"),
+        ("+ss02", "", "Il1O0", None),
+        ("+cv02", "", "4", "four.ss01"),
+        ("+cv06", "", "u", "u.1"),
+        ("+ss03", "", ",;'", None),
+        ("+frac", "", "21/64", None),
+        ("-calt", "", "==>", None),
+        ("+case", "-calt", "(A)", "parenleft.case"),
     ):
-        shaped = shape(font, text, feature)
-        plain = shape(font, text)
+        combined = f"{baseline},{feature}" if baseline else feature
+        shaped = shape(font, text, combined)
+        plain = shape(font, text, baseline) if baseline else shape(font, text)
         if expect and named(shaped):
             ok = expect in names(shaped)
             note = f"expected {expect}"
         else:
             ok = shaped != plain
             note = f"differs from the default `{plain}`"
-        out.append((f'{feature} "{text}"', "PASS" if ok else "FAIL", note, shaped))
+        label = f'{feature} "{text}"' + (f" against `{baseline}`" if baseline else "")
+        out.append((label, "PASS" if ok else "FAIL", note, shaped))
 
     swapped = shape(font, "4 u ,")
     if named(swapped):

@@ -1,8 +1,8 @@
 """Frozen build parameters for the Buoy typeface.
 
-Every value here is ruled, not chosen at build time. The ruling is
-``projects/metadao/decisions/backable-single-typeface.md`` (Nick, 2026-09-04)
-and the delegated specimen decisions recorded in the same file.
+Every value here is ruled, not chosen at build time. The rulings and the
+reasoning behind each number are recorded in ``README.md`` and in the
+``NOTICE.md`` that ships inside every release.
 
 ``build.py``, ``finish.py``, ``measure.py``, ``release.py``, ``proof.py``,
 ``specimen.py`` and ``shape_proof.py`` read from this module. Nothing else holds
@@ -24,17 +24,17 @@ PKG = HERE.parent
 # identity
 
 FAMILY = "Buoy"
-VERSION = "1.001"
+VERSION = "1.002"
 FONT_REVISION = float(VERSION)  # head.fontRevision follows the version string
-VENDOR_ID = "MDAO"
-MANUFACTURER = "MetaDAO"
-DESIGNER = "MetaDAO"
-VENDOR_URL = "https://metadao.fi"
+VENDOR_ID = "TCCO"
+MANUFACTURER = "The Creative Company"
+DESIGNER = "The Creative Company"
+VENDOR_URL = "https://github.com/galangster/buoy"
 
 # OFL 1.1 condition 2 keeps the upstream notice. FAQ 3.1 permits adding to it.
 COPYRIGHT = (
     "Copyright (c) 2016 The Inter Project Authors "
-    "(https://github.com/rsms/inter). Copyright (c) 2026 MetaDAO. "
+    "(https://github.com/rsms/inter). Copyright (c) 2026 The Creative Company. "
     "Buoy is a modified version of Inter, licensed under the "
     "SIL Open Font License, Version 1.1."
 )
@@ -147,7 +147,7 @@ FLAT_DIR = BUILD / "flat"
 RAW_DIR = BUILD / "release" / "raw"
 RELEASE_DIR = BUILD / "release"
 DIST_DIR = PKG / "release" / f"v{VERSION}"
-PROOF_DIR = PKG / "proof" / "2026-09-05-v1.001"
+PROOF_DIR = PKG / "proof" / f"2026-09-05-v{VERSION}"
 
 # ---------------------------------------------------------------------------
 # subsetting

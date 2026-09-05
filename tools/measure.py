@@ -1,4 +1,4 @@
-"""Measurements for the Backable rounding sweep.
+"""Measurements for the Buoy rounding sweep.
 
 Three jobs.
 

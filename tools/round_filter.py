@@ -1,4 +1,4 @@
-"""ufo2ft filters for the Backable rounded derivative of Inter.
+"""ufo2ft filters for the Buoy rounded derivative of Inter.
 
 Two filters live here.
 

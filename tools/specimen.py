@@ -1,4 +1,4 @@
-"""Specimen sheets for the Backable rounding sweep.
+"""Specimen sheets for the Buoy rounding sweep.
 
 Shaped text goes through ``hb-view`` so kerning and OpenType features are real.
 Glyph sheets and the diff overlay go through ``fontTools.pens.freetypePen``,
@@ -42,13 +42,13 @@ SCALE = 2  # 2x pixel density
 LABEL_PX = 13 * SCALE
 MARGIN = 24 * SCALE
 
-SPECIMEN_LINE = "Backable Handgloves 0123456789 $1,000 +12.5%"
+SPECIMEN_LINE = "Buoy Handgloves 0123456789 $1,000 +12.5%"
 ALTERNATES_LINE = 'Quiet "founders" ship, 4 of 9 u-turns.'
 PARAGRAPH = (
-    "A backable company publishes its decisions before it makes them. "
-    "Every market prices one question. The winning side pays for being "
-    "right, and the record stays open for anyone to read afterwards. "
-    "Nothing here is a promise, only a price."
+    "Buoy is Inter with every hard corner replaced by a tangent circular "
+    "arc. The radius is a ratio of the measured stem of each weight, so the "
+    "terminals stay semicircular at Regular and at Medium. Nothing is "
+    "redrawn by hand, so the kerning and the tabular figures come along."
 )  # 40 words
 
 

@@ -36,7 +36,7 @@ TOOL_PACKAGES = (
 
 STACKED_NOTICE = [
     "Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)",
-    "Copyright (c) 2026 MetaDAO (https://metadao.fi)",
+    "Copyright (c) 2026 The Creative Company (https://github.com/galangster/buoy)",
     "",
     f"{params.FAMILY} is a modified version of Inter. Inter is a trademark of",
     "Rasmus Andersson and no word of it appears in this family's name.",
@@ -106,8 +106,8 @@ def write_notice(dist: Path, versions: dict[str, str], commit: str):
     text = f"""# NOTICE
 
 {params.FAMILY} {params.VERSION} is a modified version of Inter, published by
-MetaDAO under the SIL Open Font License, Version 1.1. See `OFL.txt` for the
-license and for both copyright notices.
+{params.MANUFACTURER} under the SIL Open Font License, Version 1.1. See
+`OFL.txt` for the license and for both copyright notices.
 
 ## What was modified
 
@@ -156,11 +156,11 @@ Nothing else is changed. No outline is redrawn by hand.
     ) + f"""
 ## Build
 
-Built on {date.today().isoformat()} by `packages/backable-type` in the MetaDAO
-workspace. Tool versions:
+Built on {date.today().isoformat()} from the toolchain in this repository,
+{params.VENDOR_URL}. Tool versions:
 
 """ + "".join(f"- {k} {v}\n" for k, v in sorted(versions.items())) + """
-Gates and proof: `packages/backable-type/proof/2026-09-04-v1/`.
+"""+f"Gates and proof: `proof/{params.PROOF_DIR.name}/`."+"""
 """
     (dist / "NOTICE.md").write_text(text)
 
