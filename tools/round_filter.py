@@ -649,21 +649,21 @@ class RoundCornerFilter(BaseFilter):
         """
         if len(nodes) < 4:
             return nodes
-        kept = list(nodes)
-        dropped = True
-        while dropped and len(kept) > 3:
-            dropped = False
-            for j in range(len(kept)):
-                point, seg, _ = kept[j]
-                span = [kept[j - 1][0], point]
-                if seg[0] == "curve":
-                    span += [seg[1], seg[2]]
-                if len({(otRound(x), otRound(y)) for x, y in span}) > 1:
-                    continue
-                del kept[j]
-                dropped = True
-                break
-        return kept
+
+        def same_point(prev, node):
+            point, seg, _ = node
+            span = [prev, point] + (list(seg[1:3]) if seg[0] == "curve" else [])
+            return len({(otRound(x), otRound(y)) for x, y in span}) == 1
+
+        kept = []
+        for node in nodes:
+            if kept and same_point(kept[-1][0], node):
+                continue
+            kept.append(node)
+        # The first node's segment arrives from the last one.
+        while len(kept) > 3 and same_point(kept[-1][0], kept[0]):
+            kept.pop(0)
+        return kept if len(kept) > 3 else nodes
 
     def _is_axis_extremum(self, seg_in, seg_out, u1, u2):
         """A smooth extremum: both legs curved, both tangents on one axis."""

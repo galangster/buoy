@@ -1,0 +1,92 @@
+{
+  "family": "Buoy",
+  "version": "1.001",
+  "vendor_id": "MDAO",
+  "built": "2026-09-05",
+  "source": {
+    "upstream": "https://github.com/rsms/inter",
+    "commit": "353b61b9f4430d5f420d56605a6e7993e0941470",
+    "instances": {
+      "Regular": "Inter Regular",
+      "Medium": "Inter Medium"
+    }
+  },
+  "parameters": {
+    "outer_ratio": 0.5,
+    "inner_ratio": 0.3,
+    "min_angle": 14.0,
+    "visual": 0.25,
+    "clamp": 0.4,
+    "clamp_stem_end": 0.5,
+    "stems": {
+      "Regular": 190.0,
+      "Medium": 229.0
+    },
+    "alternates_promoted": "cv02,cv06,ss03",
+    "weight_compensation": null,
+    "hinting": "unhinted, gasp 0x000A over the full range, prep smart dropout control"
+  },
+  "subset": {
+    "unicodes": "U+0000-007F,U+0080-00FF,U+0100-017F,U+2000-206F,U+2074,U+20A0-20BF,U+2100-214F,U+2190-2199,U+21A9-21AA,U+21B5,U+2212,U+FEFF,U+FFFD",
+    "layout_features": "kern,calt,ccmp,locl,mark,mkmk,rlig,liga,clig,case,tnum,pnum,lnum,onum,zero,frac,numr,dnom,ss02,ss03,cv02,cv06",
+    "name_ids": "0,1,2,3,4,5,6,8,9,11,13,14,16,17"
+  },
+  "tools": {
+    "brotli": "1.2.0",
+    "fontbakery": "1.1.0",
+    "fontmake": "3.12.1",
+    "fonttools": "4.64.0",
+    "glyphsLib": "6.14.0",
+    "skia-pathops": "0.9.2",
+    "ufo2ft": "3.9.0",
+    "ufoLib2": "0.18.1",
+    "uharfbuzz": "0.56.1",
+    "python": "3.14.7",
+    "harfbuzz": "hb-shape (HarfBuzz) 14.2.1"
+  },
+  "files": [
+    {
+      "name": "Buoy-Regular.ttf",
+      "bytes": 384672,
+      "sha256": "e593d8b91e7a5dee511e6e41ec5721af6704be97bc4b159152cdabeab208ef7f",
+      "glyphs": 2987,
+      "unitsPerEm": 2048
+    },
+    {
+      "name": "Buoy-Regular.woff2",
+      "bytes": 33920,
+      "sha256": "f12344070523837f7e452e349dce8cde005ff0601d378ca29db5e43dfb24f9fb",
+      "glyphs": 708,
+      "unitsPerEm": 2048
+    },
+    {
+      "name": "Buoy-Medium.ttf",
+      "bytes": 391092,
+      "sha256": "bfbcbde4087c627b5bdbd2b78e0e362140daaa5cf4ec30fe674a3c4e7eaaff44",
+      "glyphs": 2987,
+      "unitsPerEm": 2048
+    },
+    {
+      "name": "Buoy-Medium.woff2",
+      "bytes": 35684,
+      "sha256": "3088d6631e9fe5a59d0134122310486b5e90c57545d0590d04a1070ad6983e4c",
+      "glyphs": 708,
+      "unitsPerEm": 2048
+    },
+    {
+      "name": "OFL.txt",
+      "bytes": 4557,
+      "sha256": "35456595e0fe688cbfea712feee7c936e36fb1772821e9d2ef2e0fb03c65f392"
+    },
+    {
+      "name": "NOTICE.md",
+      "bytes": 2089,
+      "sha256": "b03ed7f90fbc5c03314ded4a7ea0ed0fb7a59d06a3dfb6fc7edd39b4a1d76956"
+    },
+    {
+      "name": "FONTLOG.txt",
+      "bytes": 3159,
+      "sha256": "4df63ba6ac4becd60fc034fa3b13a5bc84f99dde56f35c96286f80c7549f64a0"
+    }
+  ]
+}

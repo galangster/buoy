@@ -7,14 +7,14 @@ SIL Open Font License 1.1. Ruling:
 
 ## The release
 
-`release/v1.000/` is tracked in git and is what `apps/backable` consumes:
+`release/v1.001/` is the current sealed release; `release/v1.000/` stays as shipped. Each release directory holds:
 
 Builds are reproducible: `finish.py` pins `head.modified` to `head.created`, so two
 builds of the same inputs give byte-identical TTFs and woff2 files. Prove it with two
 runs of the release sequence and `shasum -a 256 release/v1.000/Buoy-*`.
-`Buoy-Regular.ttf` (386,404 bytes), `Buoy-Medium.ttf` (393,008),
-`Buoy-Regular.woff2` (32,040), `Buoy-Medium.woff2` (33,676), plus `OFL.txt`
-(both copyright notices stacked, Inter's first), `NOTICE.md` (what was
+`Buoy-Regular.ttf` (384,672 bytes), `Buoy-Medium.ttf` (391,092),
+`Buoy-Regular.woff2` (33,920), `Buoy-Medium.woff2` (35,684), plus `OFL.txt`
+(both copyright notices stacked, Inter's first), `FONTLOG.txt` (the OFL change log, from `tools/FONTLOG.txt`), `NOTICE.md` (what was
 modified, from which Inter commit, with which parameters) and `manifest.json`
 (bytes and SHA-256 per file, source commit, parameters, tool versions).
 

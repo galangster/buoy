@@ -24,8 +24,8 @@ PKG = HERE.parent
 # identity
 
 FAMILY = "Buoy"
-VERSION = "1.000"
-FONT_REVISION = 1.0
+VERSION = "1.001"
+FONT_REVISION = float(VERSION)  # head.fontRevision follows the version string
 VENDOR_ID = "MDAO"
 MANUFACTURER = "MetaDAO"
 DESIGNER = "MetaDAO"
@@ -147,20 +147,54 @@ FLAT_DIR = BUILD / "flat"
 RAW_DIR = BUILD / "release" / "raw"
 RELEASE_DIR = BUILD / "release"
 DIST_DIR = PKG / "release" / f"v{VERSION}"
-PROOF_DIR = PKG / "proof" / "2026-09-04-v1"
+PROOF_DIR = PKG / "proof" / "2026-09-05-v1.001"
 
 # ---------------------------------------------------------------------------
 # subsetting
 
-SUBSET_UNICODES = (
-    "U+0000-00FF,U+0100-017F,U+2000-206F,U+2074,U+20A0-20BF,"
-    "U+2122,U+2190-2199,U+2212,U+FEFF,U+FFFD"
+PYFTSUBSET = PKG / ".venv" / "bin" / "pyftsubset"
+
+# The web build keeps these blocks, named one by one because a range that has
+# to be justified is a range nobody widens by accident. `subset.py` flattens
+# them for pyftsubset and proves the result.
+SUBSET_BLOCKS = (
+    ("Basic Latin",                 "U+0000-007F"),
+    ("Latin-1 Supplement",          "U+0080-00FF"),
+    ("Latin Extended-A",            "U+0100-017F"),
+    ("General Punctuation",         "U+2000-206F"),
+    # Superscript four only: the numerator the fraction feature needs a home
+    # for, and the one superscript that appears in prose.
+    ("Superscript four",            "U+2074"),
+    ("Currency Symbols",            "U+20A0-20BF"),
+    ("Letterlike Symbols",          "U+2100-214F"),
+    # U+2212 is not the hyphen, and a negative set with the hyphen reads wrong
+    # at tabular widths.
+    ("Minus sign",                  "U+2212"),
+    # The four cardinals, both bidirectionals, the four diagonals, the two hook
+    # arrows and the return arrow. The rest of U+2190-21FF is mathematical.
+    ("Arrows, common",              "U+2190-2199"),
+    ("Arrows, hook and return",     "U+21A9-21AA,U+21B5"),
+    ("Byte order mark",             "U+FEFF"),
+    # Buoy inherits no U+FFFD from Inter, so unmapped text falls to `.notdef`.
+    # The range stays so an upstream that draws one is picked up unchanged.
+    ("Replacement character",       "U+FFFD"),
 )
+# Opt-in. Precomposed Latin needs no mark attachment, so `ccmp`, `mark` and
+# `mkmk` prune to nothing without this block and the file is ~9 KB smaller.
+# Keep it when the product must render decomposed (NFD) text.
+SUBSET_COMBINING_BLOCK = ("Combining Diacritical Marks", "U+0300-036F")
+
+# `--layout-features` replaces pyftsubset's default list rather than adding to
+# it, so a tag missing here is a tag gone. `tnum`, `case`, `ss*` and `cv*` are
+# not in the default list.
 SUBSET_FEATURES = (
-    "kern,liga,calt,ccmp,clig,rlig,locl,mark,mkmk,case,tnum,pnum,lnum,onum,"
-    "frac,dnom,numr,zero,ss02,ss03,cv02,cv06"
+    "kern", "calt", "ccmp", "locl", "mark", "mkmk", "rlig", "liga", "clig",
+    "case",
+    "tnum", "pnum", "lnum", "onum", "zero", "frac", "numr", "dnom",
+    "ss02", "ss03", "cv02", "cv06",
 )
-SUBSET_NAME_IDS = "0,1,2,3,4,5,6,8,9,11,13,14,16,17"
+# 0 copyright, 13 license, 14 license URL: the OFL travels with the file.
+SUBSET_NAME_IDS = (0, 1, 2, 3, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17)
 
 
 # ---------------------------------------------------------------------------

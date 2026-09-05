@@ -11,8 +11,7 @@ never changes height. This is the calculation `next/font/local` performs:
     descent     = |buoy.descent| / (buoy.upem * sizeAdjust)
     lineGap     =  buoy.lineGap  / (buoy.upem * sizeAdjust)
 
-Only the width metric is contested, and it decides everything, so both readings
-are computed and both are written out. See `WIDTH` below.
+Only the width metric is contested, and it decides everything. See `WIDTH`.
 
     python tools/fallback.py                       # writes build/lane/fallback.css
 """
@@ -49,8 +48,7 @@ DEFAULT_OUT = params.PKG / "build" / "lane" / "fallback.css"
 # Dividing one by the other compares two different measurements and returns
 # `size-adjust: 145%`, which would set the fallback nearly half again too wide.
 # So the shipped numbers recompute Buoy's width under the version 0 weighting,
-# which is the measurement Arial and Helvetica Neue actually report. The raw
-# ratio is still printed, as the rejected reading.
+# which is the measurement Arial and Helvetica Neue actually report.
 
 # OS/2 version 0, the documented weighting. The values sum to exactly 1000.
 V0_WEIGHTS = {
@@ -60,14 +58,26 @@ V0_WEIGHTS = {
     "x": 3, "y": 18, "z": 2,
 }
 
-# Both are system fonts and neither ships with the product, so their metrics
-# are constants here. Arial's are the documented ones; Helvetica Neue's are
-# read from /System/Library/Fonts/HelveticaNeue.ttc, face 0.
+# Both are system fonts and neither ships with the product. When the file is
+# on the build machine its width is measured under the same v0 weighting as
+# Buoy's; otherwise the documented OS/2 v0 value stands in.
 FALLBACKS = (
-    {"name": "Arial", "stack": "Arial", "upem": 2048, "x_width_avg": 904},
-    {"name": "Helvetica Neue", "stack": "'Helvetica Neue'", "upem": 1000,
-     "x_width_avg": 447},
+    {"name": "Arial", "stack": "Arial",
+     "path": Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
+     "upem": 2048, "x_width_avg": 904},
+    {"name": "Helvetica Neue", "stack": "'Helvetica Neue'",
+     "path": Path("/System/Library/Fonts/HelveticaNeue.ttc"),
+     "upem": 1000, "x_width_avg": 447},
 )
+
+
+def measured(fallback: dict) -> dict:
+    """The fallback with its width read from the local file when it exists."""
+    if not fallback["path"].exists():
+        return {**fallback, "source": "documented"}
+    font = TTFont(fallback["path"], fontNumber=0, lazy=True)
+    return {**fallback, "upem": font["head"].unitsPerEm,
+            "x_width_avg": v0_x_width_avg(font), "source": str(fallback["path"])}
 
 
 def v0_x_width_avg(font: TTFont) -> float:
@@ -124,11 +134,10 @@ def pct(value: float) -> str:
     return f"{value * 100:.2f}%"
 
 
-def css(buoy: dict, rows: list[tuple[dict, dict, dict]]) -> str:
+def css(buoy: dict, rows: list[tuple[dict, dict]]) -> str:
     blocks = []
-    for fallback, shipped, raw in rows:
-        blocks.append(f"""/* Buoy over {fallback['name']}. Rejected reading, the OS/2 v3 mean advance:
-   size-adjust {pct(raw['size_adjust'])}, ascent {pct(raw['ascent'])}, descent {pct(raw['descent'])}. */
+    for fallback, shipped in rows:
+        blocks.append(f"""/* Buoy over {fallback['name']}, width {fallback['x_width_avg']:.1f} at {fallback['upem']} upem, {fallback['source']}. */
 @font-face {{
   font-family: 'Buoy Fallback';
   src: local({fallback['stack']});
@@ -148,8 +157,7 @@ def css(buoy: dict, rows: list[tuple[dict, dict, dict]]) -> str:
    version 0 weighting, which is the measurement Arial and Helvetica Neue
    report. The font's own OS/2 field says {buoy['os2_x_width_avg']}, but that is the version 3
    mean over all {buoy['glyphs']:,} glyphs, most of which no running text contains.
-   Comparing that number to Arial's oversizes the fallback by about 35%, so it
-   is recorded above each block as the rejected reading and used nowhere.
+   Comparing that number to Arial's oversizes the fallback by about 35%.
 
    How to use it
    -------------
@@ -191,16 +199,14 @@ def main(argv=None) -> int:
           f"descent {buoy['descent']}, line gap {buoy['line_gap']}")
     print(f"  average advance: {buoy['v0_x_width_avg']:.2f} (OS/2 v0 weighting), "
           f"{buoy['os2_x_width_avg']} (the font's own OS/2 field, v3 mean)\n")
-    print(f"{'fallback':16s} {'reading':10s} {'size-adjust':>12s} "
-          f"{'ascent':>9s} {'descent':>9s} {'line-gap':>9s}")
-    for fallback in FALLBACKS:
+    print(f"{'fallback':16s} {'size-adjust':>12s} {'ascent':>9s} "
+          f"{'descent':>9s} {'line-gap':>9s}  width source")
+    for fallback in map(measured, FALLBACKS):
         shipped = overrides(buoy, fallback, buoy["v0_x_width_avg"])
-        raw = overrides(buoy, fallback, buoy["os2_x_width_avg"])
-        rows.append((fallback, shipped, raw))
-        for label, row in (("shipped", shipped), ("rejected", raw)):
-            print(f"{fallback['name']:16s} {label:10s} "
-                  f"{pct(row['size_adjust']):>12s} {pct(row['ascent']):>9s} "
-                  f"{pct(row['descent']):>9s} {pct(row['line_gap']):>9s}")
+        rows.append((fallback, shipped))
+        print(f"{fallback['name']:16s} {pct(shipped['size_adjust']):>12s} "
+              f"{pct(shipped['ascent']):>9s} {pct(shipped['descent']):>9s} "
+              f"{pct(shipped['line_gap']):>9s}  {fallback['source']}")
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(css(buoy, rows))

@@ -5,3 +5,5 @@ dist/
 .venv-boot/
 __pycache__/
 .worktrees/
+vendor
+.venv
