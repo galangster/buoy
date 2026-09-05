@@ -23,6 +23,7 @@ import math
 
 from fontTools.misc.arrayTools import calcBounds
 from fontTools.misc.bezierTools import approximateCubicArcLength, splitCubicAtT
+from fontTools.misc.roundTools import otRound
 from fontTools.pens.recordingPen import RecordingPointPen
 from ufo2ft.filters import BaseFilter
 
@@ -370,7 +371,8 @@ class RoundCornerFilter(BaseFilter):
         self.max_angle_rad = math.radians(float(o.max_angle))
         # One cosine for the whole run, not one per candidate corner.
         self.extrema_cos = math.cos(math.radians(float(o.extrema_tolerance)))
-        self.stats = {"glyphs": 0, "corners": 0, "skipped_contours": 0}
+        self.stats = {"glyphs": 0, "corners": 0, "skipped_contours": 0,
+                      "degenerate_segments": 0}
 
     def set_context(self, font, glyphSet):
         context = super().set_context(font, glyphSet)
@@ -625,7 +627,43 @@ class RoundCornerFilter(BaseFilter):
             nodes.append((b_pt, ("curve", h1, h2), True))
             self.stats["corners"] += 1
 
-        return nodes
+        pruned = self._prune_degenerate(nodes)
+        self.stats["degenerate_segments"] += len(nodes) - len(pruned)
+        return pruned
+
+    @staticmethod
+    def _prune_degenerate(nodes):
+        """Drop every segment that rounds to zero length.
+
+        ``trim_segment`` can eat a short leg from both ends and leave a residue
+        under half a font unit. The residue survives in the UFO as a float,
+        then collapses when the coordinates are rounded to integers, and the
+        contour ships a zero-length line, or a curve whose four points are one
+        point. Neither draws a pixel. Both trip fontbakery's
+        ``outline_jaggy_segments`` and ``overlapping_path_segments``, because
+        the angle between a zero-length vector and its neighbour is noise.
+
+        A node owns the segment that arrives at it and every control point is
+        absolute, so dropping the node splices the contour without moving a
+        single drawn point.
+        """
+        if len(nodes) < 4:
+            return nodes
+        kept = list(nodes)
+        dropped = True
+        while dropped and len(kept) > 3:
+            dropped = False
+            for j in range(len(kept)):
+                point, seg, _ = kept[j]
+                span = [kept[j - 1][0], point]
+                if seg[0] == "curve":
+                    span += [seg[1], seg[2]]
+                if len({(otRound(x), otRound(y)) for x, y in span}) > 1:
+                    continue
+                del kept[j]
+                dropped = True
+                break
+        return kept
 
     def _is_axis_extremum(self, seg_in, seg_out, u1, u2):
         """A smooth extremum: both legs curved, both tangents on one axis."""
