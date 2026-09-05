@@ -1,0 +1,62 @@
+FONTLOG for the Buoy font family
+--------------------------------
+
+This file provides detailed information on the Buoy font software. This
+information should be distributed along with the Buoy fonts and any derivative
+works.
+
+
+Basic Font Information
+----------------------
+
+Buoy is a rounded sans in two static weights, Regular 400 and Medium 500, at
+2048 units per em. It is a modified version of Inter.
+
+Inter's copyright notice carries no Reserved Font Name, so this derivative is
+free to publish under a name of its own. Inter is a trademark of Rasmus
+Andersson and no word of it appears in this family's name.
+
+Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+Copyright (c) 2026 MetaDAO (https://metadao.fi)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+See OFL.txt, which travels with these fonts and carries both notices above the
+license text.
+
+What was modified, with which parameters and from which upstream commit, is
+recorded in NOTICE.md. Byte counts and SHA-256 digests for every file are in
+manifest.json.
+
+
+ChangeLog
+---------
+
+4 September 2026 (MetaDAO) Buoy Version 1.000
+- First release. Two static weights, Regular 400 and Medium 500, interpolated
+  from the Inter Roman masters at the text optical size and then rounded.
+- Every hard corner is replaced by a tangent circular arc, at radii that are
+  ratios of the measured stem of that weight, so terminals stay semicircular
+  at both weights.
+- Three groups of stylistic alternates are promoted to the default drawing:
+  the open four, the spurless u, and the round quotes and commas. Their
+  feature tags survive as reverse toggles back to Inter's drawings.
+- The name table, vendor ID, unique font identifier, version and embedding
+  permission are rewritten. Inter's trademark record is removed. Inter's
+  vertical metrics are preserved.
+- No outline is redrawn by hand.
+
+
+Acknowledgements
+----------------
+
+If you make modifications be sure to add your name (N), email (E), web-address
+(W) and description (D). This list is in alphabetical order.
+
+N: MetaDAO
+W: https://metadao.fi
+D: Derived Buoy from Inter: the corner rounding, the promotion of the
+   alternates, the identity and table work, and the release toolchain.
+
+N: Rasmus Andersson and the Inter Project Authors
+W: https://github.com/rsms/inter
+D: Designed and maintain Inter, the source of every outline in this family.
