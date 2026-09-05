@@ -19,6 +19,14 @@ Orchestrator audit, run independently of the lane scripts unless named.
 | reproducible bytes, two full builds | yes | yes |
 | fallback size-adjust over Arial, own weighted a-z measurement vs tool | | 107.48% vs 107.50% |
 
-Not run: Core Text and DirectWrite screenshots (needs a Windows session). The
-browser specimen captures (specimen-1440.png, specimen-390.png) did not render
-because the proof server never opened port 8787 on this run.
+macOS rendering: the specimen served over HTTP in Chrome on macOS loaded both
+v1.001 woff2 files (status `loaded`, 34,220 and 35,984 bytes transferred) and
+the 12 px labels, 16 px body and the `tnum zero ss02` hash line rendered
+clean at 1x. Inspected live in the browser pane; not saved as a PNG.
+
+Not run: DirectWrite (Windows) screenshots, which need a Windows session. The
+headless Chrome captures (specimen-1440.png, specimen-390.png) are absent on
+this run: the sandboxed shell cannot bind port 8787 for `proof.py`, and a
+headless Chrome launched from the shell against a pane-hosted server hung.
+The v1.000 captures in `proof/2026-09-04-v1/` remain the reference; the line
+box and outlines above the baseline are unchanged in v1.001.
