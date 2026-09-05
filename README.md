@@ -79,5 +79,8 @@ Run before a release is sealed. Results: `proof/2026-09-04-v1/measurements.md`.
 - No italic, no display cut, no variable font.
 - A glyph carrying both contours and components is rounded on its contour part
   only, and the overlap between the two parts is not removed first.
-- Six glyphs carry a zero-length segment left by a collapsed arc.
+- A handful of segments still round to zero length. The corner filter now
+  prunes its own collapsed arcs, but the cubic to quadratic conversion runs
+  after it and makes a few more: 4 in Regular, 10 in Medium. Closing those
+  needs a post filter on quadratics.
 - Rendering is proved on FreeType and Chrome, not Core Text or DirectWrite.
