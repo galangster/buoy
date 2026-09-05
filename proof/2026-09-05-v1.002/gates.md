@@ -77,6 +77,11 @@ filter: against the drawing Buoy actually promotes they fall to 0.4 to 3.8
 percent. Side by side at 12 and 16 ppem in `render-risk-12.png` and
 `render-risk-16.png`.
 
+Core Text, macOS: proved by capture. Chrome rasterises through Core Text, so
+`coretext-small-sizes.png` is a real Core Text rendering of both weights at 11
+to 18 px beside flat Inter. At 11 px the two are indistinguishable apart from
+the ruled alternates.
+
 Not run: DirectWrite (Windows). The fonts are unhinted with `gasp` 0x000A,
 which is the correct unhinted setting; a screenshot pass on Windows 11 at 11 to
 16 px is the one remaining rendering check. Nothing in this repository proves

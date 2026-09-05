@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Core Text small sizes</title>
+<style>
+@font-face{font-family:"Buoy";font-weight:400;src:url(/release/v1.002/Buoy-Regular.woff2) format("woff2");font-display:block}
+@font-face{font-family:"Buoy";font-weight:500;src:url(/release/v1.002/Buoy-Medium.woff2) format("woff2");font-display:block}
+@font-face{font-family:"InterFlat";font-weight:400;src:url(/build/flat/Inter-Regular.ttf) format("truetype");font-display:block}
+@font-face{font-family:"InterFlat";font-weight:500;src:url(/build/flat/Inter-Medium.ttf) format("truetype");font-display:block}
+body{margin:0;background:#fff;color:#000;padding:12px;width:900px;-webkit-font-smoothing:auto}
+.row{margin:0 0 6px}
+.lbl{font:10px/1.2 -apple-system,sans-serif;color:#888;margin:8px 0 2px}
+.s{font-variant-numeric:tabular-nums;white-space:nowrap}
+.buoy{font-family:"Buoy"}.inter{font-family:"InterFlat"}
+</style></head><body>
+<div id="out"></div>
+<script>
+const TEXT='Illicit fit HE rates, 10,486 fine-tone 1408. quick brown fox; "quotes," 4/9';
+const SIZES=[11,12,13,14,16,18];
+let h='';
+for(const w of [400,500]){
+  for(const px of SIZES){
+    h+=`<div class="lbl">${px} px · weight ${w} · Buoy then Inter</div>`;
+    h+=`<div class="row s buoy"  style="font-size:${px}px;font-weight:${w}">${TEXT}</div>`;
+    h+=`<div class="row s inter" style="font-size:${px}px;font-weight:${w}">${TEXT}</div>`;
+  }
+}
+document.getElementById('out').innerHTML=h;
+document.fonts.ready.then(()=>{document.title='ready'});
+</script></body></html>

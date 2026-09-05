@@ -137,7 +137,8 @@ Inter itself, and every glyph involved is outside the Latin web subset.
 Version 1.002 is production ready for the web on macOS, iOS, Android and
 Linux. Still open:
 
-- Windows rendering (DirectWrite) is unproved. The fonts are unhinted with
+- Windows rendering (DirectWrite) is unproved. Core Text on macOS is proved by
+  capture in `proof/2026-09-05-v1.002/coretext-small-sizes.png`. The fonts are unhinted with
   `gasp` set to grayscale and symmetric smoothing, which is the correct
   unhinted setting, and `proof/2026-09-05-v1.002/render-risk.md` measures the
   rounding's cost at 11 to 18 px and finds it does not thin stems. A

@@ -73,10 +73,34 @@ rhythm. The differences a reader can actually see are the promoted alternates:
 Buoy's four is open where Inter's is closed, and Buoy's comma and quotes are
 round where Inter's are cut. Nothing blurs, fills in, or drops out.
 
+## Core Text, macOS: measured, not assumed
+
+The FreeType pass above isolates what the rounding costs. This one asks the
+different question: does Buoy actually render well on a real platform
+rasteriser? Chrome on macOS rasterises glyphs through Core Text, so a headless
+capture at a device scale factor of 1 is a genuine Core Text rendering.
+
+`coretext.html` in this directory sets the same string in Buoy and in flat
+Inter at 11, 12, 13, 14, 16 and 18 px in both weights.
+`coretext-small-sizes.png` is that capture magnified three times with
+nearest-neighbour, Buoy above Inter in each pair.
+
+At 11 px, the smallest size any interface should use for reading, the two are
+indistinguishable in stem weight, colour and rhythm. Nothing blurs, fills in or
+drops out. The only differences a reader can see are the three ruled alternate
+promotions: the open four in `1408` and `4/9`, and the round comma and quotes.
+
+So Core Text is proved by capture. DirectWrite is not.
+
 ## What is left
 
-- **Windows, unproved.** One screenshot pass on Windows 11 in Chrome or Edge at
-  11, 12, 14 and 16 px closes it.
+- **Windows, unproved.** `coretext.html` is the check page and it is not
+  macOS-specific: serve this repository and open it on Windows 11 in Chrome or
+  Edge, and it renders the same strings at the same sizes through DirectWrite.
+  Compare the pairs the way the macOS capture above was compared. That is the
+  whole remaining pass, and it takes about two minutes on any Windows machine.
+  From a clone: `python3 -m http.server 8788` at the repository root, then
+  open `http://localhost:8788/proof/2026-09-05-v1.002/coretext.html`.
 - **The round comma at 11 to 13 px** is the one glyph worth a human look on
   hardware. Its waist is the thinnest thing the rounding touches; it stays
   above 0.34 peak coverage under an adverse vertical pixel phase, so it softens
