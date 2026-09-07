@@ -17,10 +17,12 @@ Both commits were sent to `https://github.com/galangster/buoy`.
 This handoff is a later local commit. It does not change the tested inputs.
 The delegate has stopped writing. The root worktree remains on its original branch.
 
-The local archive is `dist/Buoy-1.003-candidate.zip`, 3,024,599 bytes.
+The original archive remains `dist/Buoy-1.003-candidate.zip`, 3,024,599 bytes.
 SHA-256: `948d11daae359fe6213e9ac7aadc1fbc6c81e46ae6047ae3e2ab72f19d37773a`.
-It contains six font files, notices, CSS, instructions, delta notes and evidence.
-Every archive entry and frozen release hash passed verification.
+Fable placed that archive on hold for a repackage. The successor archive is
+`dist/Buoy-1.003-candidate-r2.zip`, 3,028,944 bytes. Its SHA-256 is
+`5f8b405d31eb31accde68c097fc6ea6f6e77a139129cc08d1a61fbf0e7a2c199`.
+Both archives contain the same six frozen font files.
 No merge, release tag or production website publication occurred.
 
 ## Authority and constraints
@@ -67,29 +69,39 @@ No Android or physical iOS capture exists. No Linux or Windows browser capture e
 
 ## Remaining work and blocker
 
-The independent Fable audit could not authenticate. Its OAuth session expired and could not refresh.
-The failed result is `/tmp/buoy-fable-audit.json`. No audit result or approval exists.
-Restore Fable authentication through its normal user login flow. Do not bypass authentication.
-Then run the read-only audit below. Fix findings with the executor, review the diff, and rerun only affected gates.
-If Fable approves, record its exact verdict against the font hashes and tested commit.
-Prepare the release action for owner review. Do not infer merge or tag authorization from this handoff.
+Fable 5.1 approved the six font artifacts at the recorded hashes. Its audit is
+`proof/2026-09-06-v1.003/fable-5.1-audit-2026-09-06.md`. The original archive
+remains on hold. Fable 5.1 approved the exact successor archive. Its verdict is
+`proof/2026-09-06-v1.003/fable-5.1-r2-approval-2026-09-06.md`.
+The approved ZIP remains unchanged. Its internal pending-audit wording records
+the state at packaging. This external verdict supersedes that wording.
+Finding 2 is closed in the local working tree. The website retains the published
+v1.002 label, release link, subset description, and matching specimen fonts.
+Fable verified the correction in
+`proof/2026-09-06-v1.003/fable-5.1-site-closure-2026-09-07.md`.
+Root inspected the rendered page at `http://127.0.0.1:8793/docs/`.
+The approved v1.003 ZIP remains unchanged. Nick authorized committing and pushing
+the reviewed corrections on 2026-09-07. This handoff accompanies that commit.
+Merge, tag, release, and website publication remain unauthorized.
+The ignored ZIP archives remain local. Internal production receipts remain untracked.
 
 Universal FontBakery remains non-green: six failures on full TTFs, four on Latin TTFs.
 Check ids are base_has_width (full only), case_mapping and transformed_components.
 The Latin case gap is U+214E. No direct U+030B exists upstream, although supported Hungarian text recomposes.
-Fable must assess these documented limits. Do not silently relabel them as passes.
+Fable assessed these documented limits as acceptable for this release scope.
+Do not relabel the remaining failures as passes.
 
-## Audit instruction, not yet completed
+## Revised archive audit instruction, completed
 
-Review Buoy 1.003 for release readiness in the named hardening worktree.
+Review the Buoy 1.003 successor candidate archive in the named hardening worktree.
 Use read-only tools. Do not modify files, create delegates, commit, push or publish.
-Compare implementation commit 6263fb363e88b5be7e89c33ee5cc084571ad20e9 with baseline fabafa0968ccf6348f793aeddc085912aed6472a.
-Read the public gate report, native raster receipt, Latin universal summary and package readiness report.
-Inspect the six frozen artifacts and source changes for rendering, shaping, metadata, licensing and subset regressions.
-Assess the inherited universal-profile failures and missing U+030B and U+214E mappings.
-Verify that evidence supports each release claim and that the archive documents its limits.
-Report concrete findings with severity and file references. State whether the exact candidate can be approved.
-Do not claim browser or physical-device coverage from offscreen or simulator evidence.
+Compare it with `dist/Buoy-1.003-candidate.zip` at its recorded SHA-256.
+Confirm that all six approved font hashes remain unchanged.
+Confirm that findings 1, 3, 4, 5 and 6 are corrected.
+Verify PACKAGE-SHA256.json against every archive entry.
+Confirm that no internal production receipt is present.
+State whether the exact successor archive can be approved.
+Keep finding 2 as a separate pre-merge boundary.
 
 ## Verification commands
 
@@ -99,10 +111,16 @@ Run from the worktree. Do not repeat passing gates unless their inputs changed.
 git status --short
 git diff 6263fb363e88b5be7e89c33ee5cc084571ad20e9 -- release/v1.003 tools .github/workflows
 shasum -a 256 dist/Buoy-1.003-candidate.zip
-.venv/bin/python -m unittest discover -s tools -p 'test_*.py'
+shasum -a 256 dist/Buoy-1.003-candidate-r2.zip
+.venv/bin/python tools/test_round_filter.py
 .venv/bin/fontbakery check-opentype -l FAIL release/v1.003/*.ttf
 .venv/bin/python tools/shape_proof.py --fonts release/v1.003/*.woff2 release/v1.003/*-Latin.ttf --no-outline-proof
 ```
+
+The direct test command includes `test_subset_validation`. It requires
+`build/release/Buoy-Regular.ttf` and `build/release/Buoy-Regular.woff2`.
+The build directory is gitignored, so a clean checkout must generate those
+artifacts before it runs the test.
 
 Workflow reruns can use workflow_dispatch from the dedicated branch after source changes.
 Its push filter excludes evidence-only commits. The successful proof remains valid while inputs match.
@@ -111,8 +129,11 @@ The archive-receipt.json outside the ZIP records the archive's own hash.
 
 ## Acceptance
 
-Independent Fable review has an explicit verdict against unchanged font hashes.
-Any blocking findings have a verified correction. The archive and evidence agree.
+Independent Fable review approves the unchanged font hashes.
+The revised archive audit approves the exact successor archive.
+The archive and its evidence agree.
 Unverified platform scope remains explicit. Public release happens only at its authorized boundary.
 
-First action: check Fable authentication, then run the saved read-only audit instruction.
+Next action: obtain owner direction for merge or release after the branch push is verified.
+Keep merge, tag, release, and website publication as separate owner boundaries.
+Continue in this session. Both the package audit and website correction are complete.

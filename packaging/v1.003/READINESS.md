@@ -1,8 +1,9 @@
 # Buoy 1.003 readiness
 
 The engineering and native raster checks are complete for this candidate.
-Final release sign-off remains pending independent Fable review. That review
-could not authenticate because its OAuth session expired.
+Fable 5.1 approved all six frozen font artifacts at the recorded hashes. It
+placed the original candidate archive on hold for a repackage. This successor
+candidate archive still requires a revised archive audit.
 
 ## Passed
 
@@ -11,7 +12,8 @@ could not authenticate because its OAuth session expired.
 - OpenType FontBakery passed all four TTFs and both expanded WOFF2 files.
 - HarfBuzz proofs cover features, NFC/NFD, mark attachment and stacking.
 - 17,112 encoded glyph renders match v1.002 without bitmap or advance changes.
-- macOS browser and iOS 26.5 simulator Safari visual checks passed.
+- macOS browser and iOS 26.5 simulator Safari visual checks passed. The macOS
+  browser capture is not stored. The iOS simulator captures are stored.
 - Windows DirectWrite and Linux FreeType each passed 192 raster runs.
 - Root inspected all unique native sheets. Full and Latin sheets match byte for byte.
 

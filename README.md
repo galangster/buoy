@@ -182,5 +182,6 @@ Authors. Inter's copyright notice declares no Reserved Font Name, so this
 derivative is free to carry a name of its own. Inter is a trademark of Rasmus Andersson, and no word of it appears
 in this family's name.
 
-The packaged candidate is prepared locally. Final independent Fable sign-off
-is pending because its OAuth login expired. No v1.003 release tag is published.
+Fable 5.1 approved the six frozen font artifacts. It placed the original
+candidate archive on hold for a repackage. The successor archive still needs
+an independent audit. No v1.003 release tag is published.

@@ -1,11 +1,23 @@
 {
-  "archive": "Buoy-1.003-candidate.zip",
-  "bytes": 3024599,
-  "sha256": "948d11daae359fe6213e9ac7aadc1fbc6c81e46ae6047ae3e2ab72f19d37773a",
-  "entries": 57,
+  "archive": "Buoy-1.003-candidate-r2.zip",
+  "bytes": 3028944,
+  "sha256": "5f8b405d31eb31accde68c097fc6ea6f6e77a139129cc08d1a61fbf0e7a2c199",
+  "entries": 58,
   "archiveIntegrity": "pass",
   "allEntryHashes": "pass",
   "frozenReleaseHashes": "pass",
+  "baselineArchive": {
+    "archive": "Buoy-1.003-candidate.zip",
+    "bytes": 3024599,
+    "sha256": "948d11daae359fe6213e9ac7aadc1fbc6c81e46ae6047ae3e2ab72f19d37773a"
+  },
   "nativeCiRun": "https://github.com/galangster/buoy/actions/runs/34080077832",
-  "releaseSignoff": "pending Fable authentication"
+  "fableFontApproval": "approved at the six frozen hashes",
+  "successorArchiveAudit": "APPROVE",
+  "releaseSignoff": "candidate package approved; owner merge, tag, release and site publication remain separate",
+  "reviewer": "claude-fable-5-1",
+  "auditEvidence": "proof/2026-09-06-v1.003/fable-5.1-r2-approval-2026-09-06.md",
+  "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
+  "preMergeBlocker": "resolved in local working tree; Fable 5.1 finding 2 closed",
+  "siteAuditEvidence": "proof/2026-09-06-v1.003/fable-5.1-site-closure-2026-09-07.md"
 }

@@ -20,6 +20,7 @@ The v1.003 candidate is built locally from Inter commit
 | mixed contour/component source glyphs | PASS | `mixed-contours.json`; all 101 per weight compiled as simple glyphs after overlap removal |
 | v1.002 raster parity | PASS | 8,556 encoded glyph renders per weight at 12, 16 and 48 px had zero bitmap, position or advance differences; see `independent-raster-parity.json` |
 | candidate proof page | PASS | HTTP load plus root CUA inspection on macOS |
+| promoted-alternate movement | INDIRECT | two direct rows skipped because `build/C` was absent; the 17,112-render v1.002 parity covers the shipped drawings |
 
 `release.py --skip-subset` also passed. That mode now validates existing WOFF2
 and Latin TTF artifacts before it copies them.
@@ -48,8 +49,9 @@ The fixed specimen generator is a separate sheet. Its clipped 390px screenshot
 was removed and is not counted as responsive proof. The CUA inspection of
 `candidate.html` is the current responsive proof.
 
-This proves the inspected macOS browser path. It does not prove Windows
-DirectWrite, iOS, Android or Linux browser rendering.
+This proves the inspected macOS browser path. It does not prove Windows,
+Android or Linux browser rendering. The separate iOS simulator proof does not
+prove a physical iOS device.
 
 ## Fallback limit
 
@@ -71,9 +73,8 @@ Safari on iOS 26.5 simulator passed. Physical iOS, Windows, Android, and Linux b
 ## Hosted native raster follow-up
 
 [`native-raster-validation.md`](native-raster-validation.md) documents the
-bounded DirectWrite and FreeType raster workflow. Hosted results remain
-separate from this local gate report until the workflow runs. The fixed runs
-do not constitute native shaping proof.
+bounded DirectWrite and FreeType raster workflow. The hosted workflow passed
+on the frozen fonts. The fixed runs do not constitute native shaping proof.
 
 ## Latin universal profile
 
@@ -92,5 +93,7 @@ Root inspected all unique saved sheets. See `native-raster-validation.md` and
 review. That review enabled tabular numeral checks, preserved overlapping ink,
 and limited CI to changes in its test inputs.
 
-The required independent Fable review did not run. Its OAuth session expired
-and could not refresh. No Fable approval or final release sign-off is claimed.
+Fable 5.1 approved all six frozen font artifacts at the recorded hashes. It
+placed the original candidate archive on hold for a repackage. The successor
+candidate archive still requires a revised archive audit. No final package
+approval or release sign-off is claimed.

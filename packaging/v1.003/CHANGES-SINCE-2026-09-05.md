@@ -43,5 +43,7 @@ No other same-named release file is claimed unchanged.
 
 ## Known open items
 
-Read READINESS.md. Independent Fable sign-off is pending authentication.
-The universal-profile findings and untested platform paths remain explicit.
+Read READINESS.md. Fable 5.1 approved the six font artifacts. The successor
+candidate archive still requires a revised archive audit. The pre-merge site
+correction remains separate. The universal-profile findings and untested
+platform paths remain explicit.

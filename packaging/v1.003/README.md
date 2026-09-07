@@ -32,4 +32,7 @@ prevent every wrap change during loading.
 
 Read READINESS.md for validated scope and remaining review requirements.
 manifest.json hashes the frozen release files. PACKAGE-SHA256.json hashes
-all package contents except itself. The archive is a candidate, not a tagged release.
+all package contents except itself. The Fable audit approves the six font
+artifacts and places the original archive on hold for a repackage. This
+successor archive still requires a revised archive audit. It is not a tagged
+release.

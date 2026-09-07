@@ -59,22 +59,37 @@
   },
   "platformClaims": {
     "macosBrowser": true,
-    "windowsDirectWrite": false,
-    "ios": false,
+    "windowsDirectWrite": true,
+    "iosSimulatorSafari": true,
+    "physicalIos": false,
     "android": false,
+    "linuxFreeType": true,
     "linuxBrowser": false
   },
   "nativeRasterValidation": {
-    "status": "awaiting-hosted-run",
+    "status": "pass",
     "workflow": ".github/workflows/native-raster-validation.yml",
+    "runUrl": "https://github.com/galangster/buoy/actions/runs/34080077832",
+    "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
     "fixture": "tools/native-raster-runs.tsv",
     "sourceRuns": 96,
     "rasterRunsPerRenderer": 192,
     "fontArtifacts": 4,
     "pngSheetsPerRenderer": 8,
+    "windowsDirectWrite": true,
+    "linuxFreeType": true,
+    "fullLatinByteIdentity": true,
     "windowsShapingProof": false,
     "linuxShapingProof": false,
     "method": "Pre-shaped HarfBuzz runs are rasterized by native DirectWrite and FreeType APIs."
+  },
+  "fableReview": {
+    "reviewer": "Fable 5.1",
+    "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
+    "fontArtifacts": "approved",
+    "originalCandidateArchive": "hold-for-repackage",
+    "successorCandidateArchive": "pending-revised-archive-audit",
+    "evidence": "fable-5.1-audit-2026-09-06.md"
   },
   "baseline": {
     "rasterParity": "zero bitmap, positioning, or advance differences across 8556 encoded glyph renders per weight at 12, 16, and 48 px",
