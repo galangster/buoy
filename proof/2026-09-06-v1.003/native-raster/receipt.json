@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "runUrl": "https://github.com/galangster/buoy/actions/runs/34080077832",
+  "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
+  "fixtureSha256": "baf8d6ea0f69fed6e104f5bdceb88664ffc132db8593e3ddf45a7fd451535d95",
+  "windowsRuns": 192,
+  "linuxRuns": 192,
+  "visualReview": "All eight unique weight/scale/renderer sheets inspected. No missing glyph boxes, erased marks, clipped runs, or malformed stems observed.",
+  "fullLatinByteIdentity": true,
+  "scope": "Native rasterization of pre-shaped HarfBuzz runs. No Windows or Linux browser/native shaping claim.",
+  "files": {
+    "linux-freetype-raster-reference/freetype-report.json": "c3be3c5aae5890085f22db9949d23d092ca077dd7360efd5a12a7ce51c4d0b1b",
+    "linux-freetype-raster-reference/full-medium-scale-100.png": "1f5b158a2ebef9f289845698ec41c53ac738fc27dc4f5d9047622f92ff6fb69a",
+    "linux-freetype-raster-reference/full-medium-scale-125.png": "e17a7c434a93533c8865ff4745b06f9a97f0922b83d83cb64737dccced8833f4",
+    "linux-freetype-raster-reference/full-regular-scale-100.png": "4c835065bdd67d7ca363f8d0a1b1aa37ab8cf3aeee1ca6d431690f362f9a8e2b",
+    "linux-freetype-raster-reference/full-regular-scale-125.png": "cc96229715e387cb7d80f3d7819d95b7a4fcd3609b4d9a8b4c932ed979e790fd",
+    "linux-freetype-raster-reference/latin-medium-scale-100.png": "1f5b158a2ebef9f289845698ec41c53ac738fc27dc4f5d9047622f92ff6fb69a",
+    "linux-freetype-raster-reference/latin-medium-scale-125.png": "e17a7c434a93533c8865ff4745b06f9a97f0922b83d83cb64737dccced8833f4",
+    "linux-freetype-raster-reference/latin-regular-scale-100.png": "4c835065bdd67d7ca363f8d0a1b1aa37ab8cf3aeee1ca6d431690f362f9a8e2b",
+    "linux-freetype-raster-reference/latin-regular-scale-125.png": "cc96229715e387cb7d80f3d7819d95b7a4fcd3609b4d9a8b4c932ed979e790fd",
+    "windows-directwrite-raster-proof/directwrite-report.json": "ef8245a861efbf65f5e503b09e431761c43e0c87427c530362083fc262ac03c1",
+    "windows-directwrite-raster-proof/full-medium-scale-100.png": "c4ab858ebf21c778056416c25ff0ebd3d585730e93f6d02ce0175f2a77682d85",
+    "windows-directwrite-raster-proof/full-medium-scale-125.png": "292375eab31babf39643bdfcca7df379206572295a8d1d717bd6a74c70252a54",
+    "windows-directwrite-raster-proof/full-regular-scale-100.png": "072af8cefdc4a740cf4cd6091149a20976fe3b470869958dc6e13e208a7f4309",
+    "windows-directwrite-raster-proof/full-regular-scale-125.png": "c490e64773df2f70cf6f7f9fdcfcc4f2a4e94e2f3614e0404e89065f5d71d7d8",
+    "windows-directwrite-raster-proof/latin-medium-scale-100.png": "c4ab858ebf21c778056416c25ff0ebd3d585730e93f6d02ce0175f2a77682d85",
+    "windows-directwrite-raster-proof/latin-medium-scale-125.png": "292375eab31babf39643bdfcca7df379206572295a8d1d717bd6a74c70252a54",
+    "windows-directwrite-raster-proof/latin-regular-scale-100.png": "072af8cefdc4a740cf4cd6091149a20976fe3b470869958dc6e13e208a7f4309",
+    "windows-directwrite-raster-proof/latin-regular-scale-125.png": "c490e64773df2f70cf6f7f9fdcfcc4f2a4e94e2f3614e0404e89065f5d71d7d8"
+  }
+}

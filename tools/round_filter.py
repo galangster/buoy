@@ -371,8 +371,16 @@ class RoundCornerFilter(BaseFilter):
         self.max_angle_rad = math.radians(float(o.max_angle))
         # One cosine for the whole run, not one per candidate corner.
         self.extrema_cos = math.cos(math.radians(float(o.extrema_tolerance)))
-        self.stats = {"glyphs": 0, "corners": 0, "skipped_contours": 0,
-                      "degenerate_segments": 0}
+        self.stats = {
+            "glyphs": 0,
+            "corners": 0,
+            "corners_by_glyph": {},
+            "skipped_contours": 0,
+            "degenerate_segments": 0,
+            "degenerate_by_glyph": {},
+            "degenerate_points": 0,
+            "degenerate_points_by_glyph": {},
+        }
 
     def set_context(self, font, glyphSet):
         context = super().set_context(font, glyphSet)
@@ -626,9 +634,22 @@ class RoundCornerFilter(BaseFilter):
             nodes.append((a_pt, prev_seg[1], True))
             nodes.append((b_pt, ("curve", h1, h2), True))
             self.stats["corners"] += 1
+            by_glyph = self.stats["corners_by_glyph"]
+            by_glyph[glyph_name] = by_glyph.get(glyph_name, 0) + 1
 
         pruned = self._prune_degenerate(nodes)
-        self.stats["degenerate_segments"] += len(nodes) - len(pruned)
+        removed = len(nodes) - len(pruned)
+        self.stats["degenerate_segments"] += removed
+        if removed:
+            by_glyph = self.stats["degenerate_by_glyph"]
+            by_glyph[glyph_name] = by_glyph.get(glyph_name, 0) + removed
+            point_count = lambda node: 3 if node[1][0] == "curve" else 1
+            removed_points = (
+                sum(map(point_count, nodes)) - sum(map(point_count, pruned))
+            )
+            self.stats["degenerate_points"] += removed_points
+            by_glyph = self.stats["degenerate_points_by_glyph"]
+            by_glyph[glyph_name] = by_glyph.get(glyph_name, 0) + removed_points
         return pruned
 
     @staticmethod

@@ -1,0 +1,23 @@
+{
+  "method": "Source UFO glyphs with both contours and components, mapped through public.postscriptNames and classified in the finished TTF. RemoveOverlapsFilter runs before RoundCornerFilter.",
+  "result": [
+    {
+      "weight": "Regular",
+      "source_mixed_glyphs": 101,
+      "compiled_simple": 101,
+      "compiled_composite": 0,
+      "missing_or_not_exported": 0,
+      "compiled_composite_names": [],
+      "missing_or_not_exported_names": []
+    },
+    {
+      "weight": "Medium",
+      "source_mixed_glyphs": 101,
+      "compiled_simple": 101,
+      "compiled_composite": 0,
+      "missing_or_not_exported": 0,
+      "compiled_composite_names": [],
+      "missing_or_not_exported_names": []
+    }
+  ]
+}

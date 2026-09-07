@@ -141,7 +141,7 @@ body { font-family: "Buoy", "Buoy Fallback", sans-serif; font-synthesis: none; }
 .amount { font-variant-numeric: tabular-nums; }
 .hash   { font-feature-settings: "tnum", "zero", "ss02"; }</pre>
     <div class="prose">
-      <p>The <a href="fallback.css">fallback stylesheet</a> declares a metric-matched “Buoy Fallback” over Arial and Helvetica Neue, so text does not shift when the real font arrives.</p>
+      <p>The <a href="fallback.css">fallback stylesheet</a> preserves line metrics over Arial and Helvetica Neue. The recorded Arial sample still differs by 0.72% in line width, so a line near its wrap boundary can reflow.</p>
     </div>
   </section>
 

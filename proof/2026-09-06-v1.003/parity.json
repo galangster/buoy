@@ -1,0 +1,30 @@
+[
+  {
+    "weight": "Regular",
+    "orientation": 1,
+    "outline_glyphs": 897,
+    "modified": 858,
+    "touched": 858,
+    "corners_rounded": 7292,
+    "point_delta": 20983,
+    "point_parity_failures": 0,
+    "point_parity_failure_names": [],
+    "odd_delta_glyphs": 263,
+    "skipped_contours": 3,
+    "variant": "release"
+  },
+  {
+    "weight": "Medium",
+    "orientation": 1,
+    "outline_glyphs": 897,
+    "modified": 860,
+    "touched": 860,
+    "corners_rounded": 7306,
+    "point_delta": 20851,
+    "point_parity_failures": 0,
+    "point_parity_failure_names": [],
+    "odd_delta_glyphs": 291,
+    "skipped_contours": 0,
+    "variant": "release"
+  }
+]

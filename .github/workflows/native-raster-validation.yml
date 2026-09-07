@@ -1,0 +1,97 @@
+name: Native raster validation
+
+on:
+  push:
+    branches:
+      - codex/buoy-v1-003-hardening-2026-09-06
+    paths:
+      - .github/workflows/native-raster-validation.yml
+      - tools/windows_directwrite_raster.cpp
+      - tools/linux_freetype_raster.py
+      - tools/make_native_raster_runs.py
+      - tools/native-raster-runs.tsv
+      - release/v1.003/*.ttf
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-directwrite:
+    name: Windows DirectWrite raster proof
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+
+      - name: Compile native validator
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VS_PATH=%%i"
+          if not defined VS_PATH exit /b 1
+          call "%VS_PATH%\VC\Auxiliary\Build\vcvars64.bat"
+          if errorlevel 1 exit /b 1
+          if not exist build\native-raster mkdir build\native-raster
+          cl /nologo /std:c++17 /EHsc /W4 /WX /DUNICODE /D_UNICODE tools\windows_directwrite_raster.cpp /Fe:build\native-raster\windows_directwrite_raster.exe /link dwrite.lib windowscodecs.lib ole32.lib bcrypt.lib advapi32.lib
+
+      - name: Render fixed glyph runs
+        shell: cmd
+        run: build\native-raster\windows_directwrite_raster.exe tools\native-raster-runs.tsv build\native-raster\directwrite
+
+      - name: Verify report and captures
+        shell: pwsh
+        run: |
+          $report = Get-Content build/native-raster/directwrite/directwrite-report.json -Raw | ConvertFrom-Json
+          if ($report.result -ne 'pass') { throw 'DirectWrite report did not pass.' }
+          if ($report.windowsShapingProof -ne $false) { throw 'Report must not claim Windows shaping proof.' }
+          if ($report.rasterizedRunCount -ne 192) { throw 'Unexpected DirectWrite run count.' }
+          if ((Get-ChildItem build/native-raster/directwrite/*.png).Count -ne 8) { throw 'Expected eight DirectWrite PNG sheets.' }
+          if (-not $report.checks.fontHashesMatch -or -not $report.checks.allTexturesNonempty -or -not $report.checks.allPngsNonempty -or -not $report.checks.allTargetBordersClear) { throw 'A DirectWrite raster check failed.' }
+          Get-Content build/native-raster/directwrite/directwrite-report.json
+
+      - name: Upload DirectWrite evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: windows-directwrite-raster-proof
+          path: build/native-raster/directwrite/
+          if-no-files-found: error
+          retention-days: 14
+
+  linux-freetype:
+    name: Linux FreeType raster reference
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+
+      - name: Install pinned raster dependencies
+        run: python3 -m pip install --disable-pip-version-check freetype-py==2.3.0 pillow==12.3.0
+
+      - name: Render fixed glyph runs
+        run: python3 tools/linux_freetype_raster.py tools/native-raster-runs.tsv build/native-raster/freetype
+
+      - name: Verify report and captures
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('build/native-raster/freetype')
+          report = json.loads((root / 'freetype-report.json').read_text())
+          assert report['result'] == 'pass'
+          assert report['linuxShapingProof'] is False
+          assert report['rasterizedRunCount'] == 192
+          assert len(list(root.glob('*.png'))) == 8
+          assert all(report['checks'].values())
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload FreeType evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: linux-freetype-raster-reference
+          path: build/native-raster/freetype/
+          if-no-files-found: error
+          retention-days: 14

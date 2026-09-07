@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "candidate": "1.003",
+  "baseCommit": "fabafa0968ccf6348f793aeddc085912aed6472a",
+  "status": "local-candidate",
+  "build": {
+    "sourceCommit": "353b61b9f4430d5f420d56605a6e7993e0941470",
+    "reproducible": true,
+    "releaseSkipSubsetValidated": true,
+    "collapsedLinesPruned": {
+      "Regular": 4,
+      "Medium": 10
+    },
+    "collapsedLinesRemaining": 0,
+    "pointAttachedComponents": 0,
+    "glyphInstructions": 0
+  },
+  "subsets": {
+    "defaultCombiningRange": "U+0300-036F",
+    "canonicalOmega": "U+03A9",
+    "glyphsPerSubset": 984,
+    "requiredFeatureValidation": true,
+    "nfcNfdShaping": true,
+    "ccmpShaping": true,
+    "markShaping": true,
+    "mkmkShaping": true,
+    "upstreamGap": "Inter does not map U+030B directly. HarfBuzz composes retained double-acute letters before mapping, and the NFC/NFD shaping regression passes."
+  },
+  "gates": {
+    "unit": "pass",
+    "pointParity": "pass",
+    "selfIntersection": "pass",
+    "shapeFullTtf": "pass",
+    "shapeWoff2AndLatinTtf": "pass",
+    "fontbakeryOpenType": {
+      "result": "pass",
+      "fonts": 6,
+      "scope": "four release TTF artifacts plus both WOFF2 files decoded to TTF"
+    },
+    "fontbakeryUniversal": {
+      "candidate": {"FAIL": 6, "INFO": 6, "PASS": 150, "SKIP": 74, "WARN": 6},
+      "v1002Baseline": {"FAIL": 6, "INFO": 6, "PASS": 150, "SKIP": 74, "WARN": 6},
+      "failureIds": ["base_has_width", "case_mapping", "transformed_components"],
+      "assessment": "identical to v1.002, once per full font"
+    },
+    "mixedContourComponents": "pass",
+    "candidateHttp": "pass",
+    "browserMacos": "pass",
+    "generatedMobileSpecimen": "omitted"
+  },
+  "browserProof": {
+    "url": "http://127.0.0.1:8793/proof/2026-09-06-v1.003/candidate.html",
+    "fontsLoaded": ["Buoy-Regular", "Buoy-Medium"],
+    "views": ["desktop full page", "390px"],
+    "platformFontCheck": "q plus acute used Buoy in both weights with two glyphs and no fallback",
+    "captureStored": false,
+    "attestedBy": "root CUA inspection",
+    "note": "The fixed specimen generator is a separate sheet. Its clipped 390px capture was removed and is not responsive proof."
+  },
+  "platformClaims": {
+    "macosBrowser": true,
+    "windowsDirectWrite": true,
+    "iosSimulatorSafari": true,
+    "physicalIos": false,
+    "android": false,
+    "linuxFreeType": true,
+    "linuxBrowser": false
+  },
+  "nativeRasterValidation": {
+    "status": "pass",
+    "workflow": ".github/workflows/native-raster-validation.yml",
+    "runUrl": "https://github.com/galangster/buoy/actions/runs/34080077832",
+    "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
+    "fixture": "tools/native-raster-runs.tsv",
+    "sourceRuns": 96,
+    "rasterRunsPerRenderer": 192,
+    "fontArtifacts": 4,
+    "pngSheetsPerRenderer": 8,
+    "windowsDirectWrite": true,
+    "linuxFreeType": true,
+    "fullLatinByteIdentity": true,
+    "windowsShapingProof": false,
+    "linuxShapingProof": false,
+    "method": "Pre-shaped HarfBuzz runs are rasterized by native DirectWrite and FreeType APIs."
+  },
+  "fableReview": {
+    "reviewer": "Fable 5.1",
+    "testedCommit": "6263fb363e88b5be7e89c33ee5cc084571ad20e9",
+    "fontArtifacts": "approved",
+    "originalCandidateArchive": "hold-for-repackage",
+    "successorCandidateArchive": "pending-revised-archive-audit",
+    "evidence": "fable-5.1-audit-2026-09-06.md"
+  },
+  "baseline": {
+    "rasterParity": "zero bitmap, positioning, or advance differences across 8556 encoded glyph renders per weight at 12, 16, and 48 px",
+    "rasterEvidence": "independent-raster-parity.json",
+    "cmapEqualForFullFonts": true,
+    "hmtxEqualForFullFonts": true,
+    "fallbackRecordedLineWidthDifferencePct": 0.72
+  }
+}

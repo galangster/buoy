@@ -1,0 +1,16 @@
+[
+  {
+    "weight": "Regular",
+    "glyph_renders_compared": 8556,
+    "pixel_or_metric_differences": [],
+    "cmap_equal": true,
+    "hmtx_equal": true
+  },
+  {
+    "weight": "Medium",
+    "glyph_renders_compared": 8556,
+    "pixel_or_metric_differences": [],
+    "cmap_equal": true,
+    "hmtx_equal": true
+  }
+]

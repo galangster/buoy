@@ -91,16 +91,15 @@ def glyph_metrics(font: TTFont, names=None, area: bool = True):
     glyph_set = font.getGlyphSet()
     glyf = font["glyf"]
     out = {}
-    for name in names if names is not None else font.getGlyphOrder():
-        if name not in glyph_set:
-            continue
+    requested = list(names) if names is not None else font.getGlyphOrder()
+    missing = [name for name in requested if name not in glyph_set]
+    if missing:
+        raise ValueError(f"font is missing requested glyphs: {missing[:20]}")
+    for name in requested:
         ink = 0.0
         if area:
             pen = AreaPen(glyph_set)
-            try:
-                glyph_set[name].draw(pen)
-            except Exception:  # a malformed glyph must not stop the sweep
-                continue
+            glyph_set[name].draw(pen)
             ink = abs(pen.value)
         n_points = 0
         g = glyf[name]
@@ -128,12 +127,9 @@ def simplify_area_change(font: TTFont, names):
     out = {}
     for name in names:
         if name not in glyph_set:
-            continue
+            raise ValueError(f"font is missing requested glyph {name}")
         path = pathops.Path()
-        try:
-            glyph_set[name].draw(path.getPen(glyphSet=glyph_set))
-        except Exception:
-            continue
+        glyph_set[name].draw(path.getPen(glyphSet=glyph_set))
         before = abs(path.area)
         if before <= 0:
             continue
@@ -179,7 +175,12 @@ def parity(ufo_dir: Path, weight: str, stem: float, outer: float, inner: float,
 
     deltas = {n: after[n] - before[n] for n in before}
     touched = [n for n in deltas if deltas[n]]
-    bad = sorted(n for n in touched if deltas[n] % 3 != 0)
+    expected = {
+        name: 3 * filt.stats["corners_by_glyph"].get(name, 0)
+        - filt.stats["degenerate_points_by_glyph"].get(name, 0)
+        for name in deltas
+    }
+    bad = sorted(n for n in deltas if deltas[n] != expected[n])
     odd = [n for n in touched if deltas[n] % 2 == 1]
     return {
         "weight": weight,
@@ -187,10 +188,10 @@ def parity(ufo_dir: Path, weight: str, stem: float, outer: float, inner: float,
         "outline_glyphs": len(before),
         "modified": len(modified),
         "touched": len(touched),
-        "corners_rounded": sum(deltas.values()) // 3,
+        "corners_rounded": filt.stats["corners"],
         "point_delta": sum(deltas.values()),
-        "not_multiple_of_three": len(bad),
-        "not_multiple_of_three_names": bad[:20],
+        "point_parity_failures": len(bad),
+        "point_parity_failure_names": bad[:20],
         "odd_delta_glyphs": len(odd),
         "skipped_contours": filt.stats["skipped_contours"],
     }
@@ -292,6 +293,18 @@ def compare(flat_dir: Path, variant_dir: Path, weight: str, gate: float = 0.5,
 # ---------------------------------------------------------------------------
 
 
+def gate_status(mode: str, rows, missing=()) -> int:
+    """Map authoritative findings and missing inputs to process status."""
+    if missing:
+        return 2
+    key = (
+        "point_parity_failures"
+        if mode == "parity"
+        else "self_intersect_offender_count"
+    )
+    return 1 if any(row[key] for row in rows) else 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("stems", "compare", "parity"))
@@ -302,6 +315,11 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     build = Path(args.build)
+    variants = [variant.strip() for variant in args.variants.split(",")]
+    unknown = [variant for variant in variants if variant not in VARIANTS]
+    if unknown:
+        print(f"unknown variants: {', '.join(unknown)}", file=sys.stderr)
+        return 2
 
     if args.mode == "stems":
         ufo_dir = Path(args.ufo_dir) if args.ufo_dir else build / "ufo-flat"
@@ -317,10 +335,7 @@ def main(argv=None):
     if args.mode == "parity":
         ufo_dir = Path(args.ufo_dir) if args.ufo_dir else build / "ufo-flat"
         rows = []
-        for variant in args.variants.split(","):
-            variant = variant.strip()
-            if variant not in VARIANTS:
-                continue
+        for variant in variants:
             spec = VARIANTS[variant]
             for weight in spec["weights"]:
                 row = parity(
@@ -332,18 +347,19 @@ def main(argv=None):
                 rows.append(row)
                 print(
                     f"{variant}-{weight:9s} corners={row['corners_rounded']:6d} "
-                    f"bad={row['not_multiple_of_three']}",
+                    f"bad={row['point_parity_failures']}",
                     file=sys.stderr, flush=True,
                 )
         print(json.dumps(rows, indent=2))
-        return 0
+        return gate_status("parity", rows)
 
     flat = build / "flat"
     results = []
-    for variant in args.variants.split(","):
-        variant = variant.strip()
+    missing = []
+    for variant in variants:
         vdir = build / variant
         if not vdir.exists():
+            missing.append(str(vdir))
             continue
         # The release build carries the shipping family name, the sweep does
         # not, so the baseline is always Inter and the candidate is not.
@@ -354,11 +370,15 @@ def main(argv=None):
         for weight in weights:
             row = compare(flat, vdir, weight, prefix=prefix)
             if row is None:
+                missing.append(f"{variant}/{weight}")
                 continue
             row["variant"] = variant
             results.append(row)
     print(json.dumps(results, indent=2))
-    return 0
+    if missing:
+        print(f"missing requested inputs: {', '.join(missing)}", file=sys.stderr)
+        return gate_status("compare", results, missing)
+    return gate_status("compare", results)
 
 
 if __name__ == "__main__":

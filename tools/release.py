@@ -26,6 +26,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 import params  # noqa: E402
+import shape_proof  # noqa: E402
 import subset as subsetter  # noqa: E402
 
 # Recorded in the manifest, so the order is the order they are written in.
@@ -151,7 +152,15 @@ overrides from them.
 `gasp` is set to grayscale and symmetric smoothing across the whole range, and
 `prep` carries smart dropout control. The fonts are otherwise unhinted.
 
-Nothing else is changed. No outline is redrawn by hand.
+The final TrueType cleanup removes only consecutive on-curve points at the
+same integer coordinate. These zero-length lines draw no pixels. The cleanup
+stops if glyph instructions or point-attached components could observe the
+point index.
+
+The web files include combining diacritical marks and Greek capital Omega, the
+canonical decomposition of the retained ohm sign. Smaller Latin TrueType files
+carry the same repertoire for share-image rendering. No outline is redrawn by
+hand.
 
 ## Source
 
@@ -164,8 +173,12 @@ Nothing else is changed. No outline is redrawn by hand.
 | file | weight | usWeightClass |
 | --- | --- | --- |
 """ + "".join(
-        f"| `{params.woff2_name(w)}` | {w} | {params.STYLES[w]['weight_class']} |\n"
-        for w in params.RELEASE_WEIGHTS
+        f"| `{name}` | {weight} | {params.STYLES[weight]['weight_class']} |\n"
+        for weight in params.RELEASE_WEIGHTS
+        for name in (
+            params.ttf_name(weight), params.woff2_name(weight),
+            f"{params.FAMILY}-{weight}-Latin.ttf",
+        )
     ) + f"""
 ## Build
 
@@ -176,6 +189,23 @@ Built on {date.today().isoformat()} from the toolchain in this repository,
 Gates and proof: `{params.PROOF_DIR.relative_to(params.PKG)}/`.
 """
     (dist / "NOTICE.md").write_text(text)
+
+
+def validate_subset(ttf: Path, output: Path, expected_flavor) -> None:
+    """Validate an existing subset, including when generation was skipped."""
+    if not output.exists():
+        raise SystemExit(f"missing subset artifact {output}")
+    problems, notes = subsetter.verify(
+        TTFont(ttf), TTFont(output), expected_flavor=expected_flavor
+    )
+    shaped, _ = shape_proof.shapeable(output)
+    failed_cases = [row[0] for row in shape_proof.cases(shaped) if row[1] == "FAIL"]
+    if failed_cases:
+        problems.append(f"shaping cases failed: {', '.join(failed_cases)}")
+    if problems:
+        raise SystemExit(f"{output.name}: {'; '.join(problems)}")
+    for note in notes:
+        print(f"{output.name}: {note}")
 
 
 def main(argv=None):
@@ -190,12 +220,17 @@ def main(argv=None):
     for weight in params.RELEASE_WEIGHTS:
         ttf = params.RELEASE_DIR / params.ttf_name(weight)
         woff2 = params.RELEASE_DIR / params.woff2_name(weight)
+        latin_ttf = params.RELEASE_DIR / f"{params.FAMILY}-{weight}-Latin.ttf"
         if not args.skip_subset:
             subsetter.subset(ttf, woff2)
-            problems, _ = subsetter.verify(TTFont(ttf), TTFont(woff2))
-            if problems:
-                raise SystemExit(f"{woff2.name}: {'; '.join(problems)}")
-        for path in (ttf, woff2):
+            # WOFF2 is a lossless container transform. Decode the artifact we
+            # just validated so the OG TTF cannot drift to another repertoire.
+            latin = TTFont(woff2, recalcTimestamp=False)
+            latin.flavor = None
+            latin.save(latin_ttf)
+        validate_subset(ttf, woff2, "woff2")
+        validate_subset(ttf, latin_ttf, None)
+        for path in (ttf, woff2, latin_ttf):
             shutil.copy2(path, dist / path.name)
             files.append(dist / path.name)
 
@@ -226,7 +261,7 @@ def main(argv=None):
                        "prep smart dropout control",
         },
         "subset": {
-            "unicodes": subsetter.unicodes(combining=False),
+            "unicodes": subsetter.unicodes(),
             "layout_features": ",".join(params.SUBSET_FEATURES),
             "name_ids": ",".join(str(i) for i in params.SUBSET_NAME_IDS),
         },

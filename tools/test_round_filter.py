@@ -12,10 +12,14 @@ import sys
 from pathlib import Path
 
 import ufoLib2
+from fontTools.ttLib import TTFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import params  # noqa: E402
+from glyf_cleanup import prune_contour  # noqa: E402
+from measure import gate_status  # noqa: E402
+import subset as subsetter  # noqa: E402
 from round_filter import (  # noqa: E402
     RoundCornerFilter,
     SwapAlternatesFilter,
@@ -306,6 +310,72 @@ def test_alternate_swap():
     )
 
 
+def test_compiled_line_cleanup():
+    print("compiled line cleanup")
+    points = [(0, 0), (100, 0), (100, 0), (100, 100), (0, 100)]
+    kept, kept_flags, removed = prune_contour(points, [1, 1, 1, 1, 1])
+    check(removed == 1, f"one collapsed line is removed (got {removed})")
+    check(
+        kept == [(0, 0), (100, 0), (100, 100), (0, 100)],
+        f"the drawn square stays intact (got {kept})",
+    )
+    check(kept_flags == [1, 1, 1, 1], "on-curve flags stay aligned")
+
+    # An off-curve control at the endpoint belongs to a real quadratic curve.
+    curve = [(0, 0), (100, 100), (100, 100), (200, 0)]
+    kept, _, removed = prune_contour(curve, [1, 0, 1, 1])
+    check(
+        removed == 0 and kept == curve,
+        "an equal off-curve control and endpoint are not removed",
+    )
+
+
+def test_gate_statuses():
+    print("authoritative exit statuses")
+    check(
+        gate_status("parity", [{"point_parity_failures": 1}]) == 1,
+        "point parity findings fail the gate",
+    )
+    check(
+        gate_status("compare", [{"self_intersect_offender_count": 1}]) == 1,
+        "self-intersection findings fail the gate",
+    )
+    check(
+        gate_status("compare", [], ["missing.ttf"]) == 2,
+        "missing requested inputs stop the gate",
+    )
+
+
+def test_subset_validation():
+    print("subset validation failures")
+    source_path = PKG / "build" / "release" / "Buoy-Regular.ttf"
+    subset_path = PKG / "build" / "release" / "Buoy-Regular.woff2"
+    if not source_path.exists() or not subset_path.exists():
+        check(False, "release fonts exist for subset validation")
+        return
+
+    source = TTFont(source_path)
+    missing_feature = TTFont(subset_path)
+    records = missing_feature["GSUB"].table.FeatureList.FeatureRecord
+    missing_feature["GSUB"].table.FeatureList.FeatureRecord = [
+        record for record in records if record.FeatureTag != "ccmp"
+    ]
+    problems, _ = subsetter.verify(source, missing_feature)
+    check(
+        any("required live features dropped: ccmp" in problem for problem in problems),
+        "a dropped live feature fails validation",
+    )
+
+    missing_mark = TTFont(subset_path)
+    for table in missing_mark["cmap"].tables:
+        table.cmap.pop(0x0301, None)
+    problems, _ = subsetter.verify(source, missing_mark)
+    check(
+        any("U+0301" in problem for problem in problems),
+        "a dropped combining-mark mapping fails validation",
+    )
+
+
 def main():
     for fn in (
         test_orientation_sign,
@@ -316,6 +386,9 @@ def main():
         test_tangents,
         test_exclusions,
         test_alternate_swap,
+        test_compiled_line_cleanup,
+        test_gate_statuses,
+        test_subset_validation,
     ):
         fn()
     print()

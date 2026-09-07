@@ -195,7 +195,7 @@ def wait_for_port(port: int, timeout: float = 5.0) -> bool:
 
 
 def render_specimen(out_dir: Path):
-    """Screenshot the specimen page at two viewports with a real browser.
+    """Screenshot the fixed specimen sheet at its desktop viewport.
 
     Playwright is not installed anywhere in this workspace, so the locally
     installed Chrome runs headless instead. The page is served over HTTP
@@ -215,9 +215,7 @@ def render_specimen(out_dir: Path):
     try:
         if not wait_for_port(PORT):
             raise RuntimeError(f"the proof server never opened port {PORT}")
-        for name, width, height in (
-            ("specimen-1440.png", 1440, 1200), ("specimen-390.png", 390, 1400),
-        ):
+        for name, width, height in (("specimen-1440.png", 1440, 1200),):
             target = out_dir / name
             done = subprocess.run([
                 str(CHROME), "--headless=new", "--disable-gpu",
