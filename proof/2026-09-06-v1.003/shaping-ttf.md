@@ -57,4 +57,3 @@ default outline. Compared in TTF outline space.
 | --- | --- | --- | --- | --- |
 | Regular | - | - | SKIP | build/C/Inter-Regular.ttf missing |
 | Medium | - | - | SKIP | build/C/Inter-Medium.ttf missing |
-

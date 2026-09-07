@@ -9,7 +9,7 @@ Live specimen: <https://galangster.github.io/buoy/>
 
 ## Download
 
-The local release candidate is `release/v1.003/`. The latest published,
+The release candidate is `release/v1.003/`. The latest published,
 immutable release remains `v1.002` until this candidate is reviewed and
 published.
 
@@ -140,22 +140,27 @@ Every release passes these before it is sealed. The local candidate record is
 ```
 
 The three inherited `check-universal` failures are `base_has_width`,
-`case_mapping` and `transformed_components`. Each one fails identically on
-Inter itself, and every glyph involved is outside the Latin web subset.
+`case_mapping` and `transformed_components`. The Latin TTFs also report
+`case_mapping` and `transformed_components`, once per weight. The missing
+case counterpart is U+214E. The transformed components are upstream
+constructions and remain unhinted. See `latin-universal-summary.json` in the
+candidate proof directory. These are documented failures, not passing checks.
 
 ## Status
 
-Version 1.003 is a local production candidate. Its automated gates and proof
+Version 1.003 is a validated production candidate on the hardening branch. Its automated gates and proof
 pages are recorded in its proof directory. A macOS browser inspection passed,
 but that CUA capture is not stored in this repository. Platform capture
 remains narrower than the font's intended use:
 
-- Windows rendering through DirectWrite is unproved. Core Text on macOS is proved by
+- Hosted Windows DirectWrite and Linux FreeType raster checks passed, with 192 runs each.
+  Saved evidence is in `proof/2026-09-06-v1.003/native-raster/`. These use
+  pre-shaped HarfBuzz runs and do not prove native browser shaping. Core Text on macOS is proved by
   capture in `proof/2026-09-05-v1.002/coretext-small-sizes.png`. The fonts are unhinted with
   `gasp` set to grayscale and symmetric smoothing, which is the correct
   unhinted setting, and `proof/2026-09-05-v1.002/render-risk.md` measures the
   rounding's cost at 11 to 18 px and finds it does not thin stems. A
-  screenshot pass on Windows 11 is still the remaining check.
+  Windows browser check remains outside the validated scope.
 - No hand pass. The identity glyphs, bone-effect blunting at stem ends and
   terminal overshoot are all still mechanical.
 - No italic, no display cut, no variable font. At two weights, two static
@@ -176,3 +181,6 @@ Buoy is Copyright (c) 2026 The Creative Company, and is a modified version of
 Authors. Inter's copyright notice declares no Reserved Font Name, so this
 derivative is free to carry a name of its own. Inter is a trademark of Rasmus Andersson, and no word of it appears
 in this family's name.
+
+The packaged candidate is prepared locally. Final independent Fable sign-off
+is pending because its OAuth login expired. No v1.003 release tag is published.

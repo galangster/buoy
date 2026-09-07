@@ -2,7 +2,8 @@
 
 ## Result
 
-Safari passes the inspected iOS simulator cases. Windows DirectWrite remains blocked by an unreachable remote PC.
+Safari passes the inspected iOS simulator cases. The remote Windows PC was unreachable.
+A later hosted DirectWrite raster check passed. See [native validation](../native-raster-validation.md).
 
 ## iOS simulator proof
 

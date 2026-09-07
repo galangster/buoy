@@ -35,3 +35,19 @@ The workflow is
 `.github/workflows/native-raster-validation.yml`. Its actions are pinned to
 commit hashes. It has read-only repository permissions and a ten-minute job
 timeout.
+
+## Hosted result
+
+[Run 34080077832](https://github.com/galangster/buoy/actions/runs/34080077832)
+passed both jobs on commit `6263fb363e88b5be7e89c33ee5cc084571ad20e9`.
+Windows reports build 10.0.20348. Linux reports FreeType 2.12.0.
+Each renderer passed all checks for 192 runs and saved eight PNG sheets.
+
+Root inspected all eight unique renderer, weight and scale combinations.
+No missing glyph boxes, erased marks, clipped runs or malformed stems were observed.
+Full and Latin PNGs are byte-identical in all eight matching combinations.
+The numeric fixture enables `tnum` and checks equal advances for digits 0–9.
+The stored [receipt](native-raster/receipt.json) binds every capture and report by SHA-256.
+
+These results close the native raster check. A Windows browser visit remains
+outside this evidence. The earlier unreachable remote PC is not needed for this raster proof.

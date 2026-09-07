@@ -89,4 +89,3 @@ Every row is `hb-shape` output, not a table read.
 | `-calt "==>"` | **PASS** | differs from the default `[gid806=0+2746]` | `[gid663=0+1355|gid663=1+1355|gid662=2+1355]` |
 | `+case "(A)" against `-calt`` | **PASS** | differs from the default `[gid591=0+747|gid2=1+1413|gid592=2+747]` | `[gid600=0+747|gid2=1+1413|gid601=2+747]` |
 | `default "4 u ,"` | **PASS** | each promoted default still has a reachable reverse toggle | `[gid518=0+1323|gid776=1+576|gid418=2+1211|gid776=3+576|gid649=4+590]` |
-

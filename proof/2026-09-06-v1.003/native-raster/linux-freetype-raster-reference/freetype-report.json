@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "result": "pass",
+  "proofType": "FreeType raster reference from pre-shaped HarfBuzz glyph runs",
+  "linuxShapingProof": false,
+  "osVersion": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "renderer": "FreeType 2.12.0",
+  "rasterMode": "FT_RENDER_MODE_NORMAL with FT_LOAD_TARGET_NORMAL",
+  "fontLoading": "FreeType file faces; no system font installation",
+  "fixture": "tools/native-raster-runs.tsv",
+  "sizesPx": [
+    11,
+    12,
+    13,
+    14,
+    16,
+    18
+  ],
+  "scales": [
+    1.0,
+    1.25
+  ],
+  "caseIds": [
+    "stems",
+    "round-punctuation",
+    "digits",
+    "accents"
+  ],
+  "sourceRunCount": 96,
+  "rasterizedRunCount": 192,
+  "checks": {
+    "fontHashesMatch": true,
+    "allTexturesNonempty": true,
+    "allPngsNonempty": true,
+    "allTargetBordersClear": true
+  },
+  "sheets": [
+    {
+      "fontId": "full-medium",
+      "weight": "Medium",
+      "sha256": "793e936389e1b25140cb93238772a647236ce7977ac98cf9593e9c4a6e61420e",
+      "scale": 1.0,
+      "width": 383,
+      "height": 561,
+      "runCount": 24,
+      "inkSum": 3343235,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "full-medium-scale-100.png"
+    },
+    {
+      "fontId": "full-medium",
+      "weight": "Medium",
+      "sha256": "793e936389e1b25140cb93238772a647236ce7977ac98cf9593e9c4a6e61420e",
+      "scale": 1.25,
+      "width": 473,
+      "height": 647,
+      "runCount": 24,
+      "inkSum": 5232002,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "full-medium-scale-125.png"
+    },
+    {
+      "fontId": "full-regular",
+      "weight": "Regular",
+      "sha256": "820d453532dfbb4f93361a0c9b72e2651ab32cf6e51715443615ab5ec2066732",
+      "scale": 1.0,
+      "width": 383,
+      "height": 563,
+      "runCount": 24,
+      "inkSum": 2850467,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "full-regular-scale-100.png"
+    },
+    {
+      "fontId": "full-regular",
+      "weight": "Regular",
+      "sha256": "820d453532dfbb4f93361a0c9b72e2651ab32cf6e51715443615ab5ec2066732",
+      "scale": 1.25,
+      "width": 473,
+      "height": 643,
+      "runCount": 24,
+      "inkSum": 4458105,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "full-regular-scale-125.png"
+    },
+    {
+      "fontId": "latin-medium",
+      "weight": "Medium",
+      "sha256": "46e222c7d270ef6978ecccf0144b920bff43411491a0ed275489c532da83deb1",
+      "scale": 1.0,
+      "width": 383,
+      "height": 561,
+      "runCount": 24,
+      "inkSum": 3343235,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "latin-medium-scale-100.png"
+    },
+    {
+      "fontId": "latin-medium",
+      "weight": "Medium",
+      "sha256": "46e222c7d270ef6978ecccf0144b920bff43411491a0ed275489c532da83deb1",
+      "scale": 1.25,
+      "width": 473,
+      "height": 647,
+      "runCount": 24,
+      "inkSum": 5232002,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "latin-medium-scale-125.png"
+    },
+    {
+      "fontId": "latin-regular",
+      "weight": "Regular",
+      "sha256": "fa4a855d623c22351803e8341bd31240ff843daaf6aaae07d693e400530c27f5",
+      "scale": 1.0,
+      "width": 383,
+      "height": 563,
+      "runCount": 24,
+      "inkSum": 2850467,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "latin-regular-scale-100.png"
+    },
+    {
+      "fontId": "latin-regular",
+      "weight": "Regular",
+      "sha256": "fa4a855d623c22351803e8341bd31240ff843daaf6aaae07d693e400530c27f5",
+      "scale": 1.25,
+      "width": 473,
+      "height": 643,
+      "runCount": 24,
+      "inkSum": 4458105,
+      "nonempty": true,
+      "targetBorderClear": true,
+      "png": "latin-regular-scale-125.png"
+    }
+  ]
+}

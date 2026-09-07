@@ -83,3 +83,14 @@ The missing case counterpart is U+214E for U+2132. The transformed components
 are retained upstream constructions. These fonts are unhinted; the check
 warns about compatibility with downstream autohinting. Neither finding is
 claimed as a passing check. See `latin-universal-summary.json`.
+
+## Final native result
+
+Windows DirectWrite and Linux FreeType passed on the frozen candidate fonts.
+Root inspected all unique saved sheets. See `native-raster-validation.md` and
+`native-raster/receipt.json`. The native test tooling received a root simplify
+review. That review enabled tabular numeral checks, preserved overlapping ink,
+and limited CI to changes in its test inputs.
+
+The required independent Fable review did not run. Its OAuth session expired
+and could not refresh. No Fable approval or final release sign-off is claimed.
