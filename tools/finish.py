@@ -29,6 +29,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 import params  # noqa: E402
+from glyf_cleanup import prune_degenerate_lines  # noqa: E402
 
 # Windows/Unicode BMP/US English only. Ruled 2026-09-04 on fontbakery's
 # `no-mac-entries`: Macintosh (platform 1) records are legacy, every current
@@ -266,6 +267,7 @@ def main(argv=None):
         os2 = TTFont(flat, recalcTimestamp=False, lazy=True)["OS/2"]
         floor = (max(floor[0], os2.usWinAscent), max(floor[1], os2.usWinDescent))
     fonts = {w: TTFont(raw, recalcTimestamp=False) for w, (raw, _) in family.items()}
+    pruned = {w: prune_degenerate_lines(font) for w, font in fonts.items()}
     inks = {w: ink_box(font) for w, font in fonts.items()}
     win_box = family_win_box(inks.values(), floor)
 
@@ -285,6 +287,8 @@ def main(argv=None):
                        for tag, attr in VERTICAL_PINNED))
         print(f"  win box {row['win_box']} contains the family ink; "
               f"this weight reaches {row['ink']}")
+        print(f"  pruned {sum(pruned[row['weight']].values())} collapsed lines "
+              f"from {len(pruned[row['weight']])} glyphs")
     return 0
 
 

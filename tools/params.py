@@ -24,7 +24,7 @@ PKG = HERE.parent
 # identity
 
 FAMILY = "Buoy"
-VERSION = "1.002"
+VERSION = "1.003"
 FONT_REVISION = float(VERSION)  # head.fontRevision follows the version string
 VENDOR_ID = "TCCO"
 MANUFACTURER = "The Creative Company"
@@ -147,7 +147,7 @@ FLAT_DIR = BUILD / "flat"
 RAW_DIR = BUILD / "release" / "raw"
 RELEASE_DIR = BUILD / "release"
 DIST_DIR = PKG / "release" / f"v{VERSION}"
-PROOF_DIR = PKG / "proof" / f"2026-09-05-v{VERSION}"
+PROOF_DIR = PKG / "proof" / f"2026-09-06-v{VERSION}"
 
 # ---------------------------------------------------------------------------
 # subsetting
@@ -161,6 +161,10 @@ SUBSET_BLOCKS = (
     ("Basic Latin",                 "U+0000-007F"),
     ("Latin-1 Supplement",          "U+0080-00FF"),
     ("Latin Extended-A",            "U+0100-017F"),
+    ("Combining Diacritical Marks", "U+0300-036F"),
+    # U+2126 OHM SIGN canonically decomposes to this character. Keeping the
+    # symbol without its canonical base would make equivalent input fall back.
+    ("Greek capital Omega",          "U+03A9"),
     ("General Punctuation",         "U+2000-206F"),
     # Superscript four only: the numerator the fraction feature needs a home
     # for, and the one superscript that appears in prose.
@@ -179,11 +183,6 @@ SUBSET_BLOCKS = (
     # The range stays so an upstream that draws one is picked up unchanged.
     ("Replacement character",       "U+FFFD"),
 )
-# Opt-in. Precomposed Latin needs no mark attachment, so `ccmp`, `mark` and
-# `mkmk` prune to nothing without this block and the file is ~9 KB smaller.
-# Keep it when the product must render decomposed (NFD) text.
-SUBSET_COMBINING_BLOCK = ("Combining Diacritical Marks", "U+0300-036F")
-
 # `--layout-features` replaces pyftsubset's default list rather than adding to
 # it, so a tag missing here is a tag gone. `tnum`, `case`, `ss*` and `cv*` are
 # not in the default list.
@@ -191,6 +190,14 @@ SUBSET_FEATURES = (
     "kern", "calt", "ccmp", "locl", "mark", "mkmk", "rlig", "liga", "clig",
     "case",
     "tnum", "pnum", "lnum", "onum", "zero", "frac", "numr", "dnom",
+    "ss02", "ss03", "cv02", "cv06",
+)
+# These tags do work in the source font and must remain live in every subset.
+# Tags above that Inter does not provide are retained as forward-compatible
+# requests, but they do not satisfy a release claim.
+SUBSET_REQUIRED_FEATURES = (
+    "kern", "calt", "ccmp", "locl", "mark", "mkmk", "case",
+    "tnum", "pnum", "zero", "frac", "numr", "dnom",
     "ss02", "ss03", "cv02", "cv06",
 )
 # 0 copyright, 13 license, 14 license URL: the OFL travels with the file.

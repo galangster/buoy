@@ -1,0 +1,52 @@
+{
+  "candidate": "1.003",
+  "date": "2026-09-06",
+  "fontSha256": {
+    "Buoy-Regular.woff2": "4631ec5613a96c8bae1a329a47f88f2c6d66335908fd1fddf485686f7f99066c",
+    "Buoy-Medium.woff2": "7073bfe7316103bb630615292245794ca56e3ac0c8c670868d3a4adb1461b8c0"
+  },
+  "iosSimulator": {
+    "status": "pass",
+    "device": "iPhone 17 Pro",
+    "runtime": "iOS 26.5",
+    "browser": "Safari",
+    "viewportPoints": [
+      402,
+      874
+    ],
+    "udid": "D5BF1CF9-5835-47AB-A7B0-F644A28D6100",
+    "fontLoadStatus": "Both candidate font files loaded.",
+    "inspected": [
+      "11, 12, 13, 14, 16, 18 px, weights 400 and 500",
+      "NFC and NFD cafe and double acute",
+      "base-to-mark and stacked mark positioning",
+      "dotless i substitution",
+      "ohm and Omega",
+      "tabular amounts",
+      "identity glyphs"
+    ],
+    "physicalDeviceTested": false,
+    "captureHashes": {
+      "ios-small-sizes.png": "22fa6c165bef4ede8e18cf5571ad34f2591d7267ba70e45215552cc891573767",
+      "ios-accents.png": "91d8bc7365b6d671a89a0993f55cef1254c2b7a8b9a65bb6b554fe065d3dad8b",
+      "ios-stacked-marks.png": "4d3b34abd3a13a55ea1fe284c7229cd40e04f5c5bd4dc209f5ac6dbcdccfd222",
+      "ios-numerals-identity.png": "929bce40ffaafa85fae1264e6b0cc96974c959426497fc41d0efb68e894481ad"
+    }
+  },
+  "windows": {
+    "status": "blocked",
+    "client": "Windows App",
+    "target": "existing saved remote PC",
+    "errorCode": "0x204",
+    "observedResult": "Unable to connect. Remote PC unreachable through the saved connection.",
+    "renderingTestRun": false
+  },
+  "android": {
+    "status": "not-run",
+    "reason": "No local adb or emulator found."
+  },
+  "linuxBrowser": {
+    "status": "not-run",
+    "reason": "Docker is available, but no Linux browser capture was performed."
+  }
+}

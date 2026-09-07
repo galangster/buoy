@@ -151,6 +151,47 @@ def cases(font: Path):
         f"-kern {off}",
     ))
 
+    for label, composed, decomposed in (
+        ("NFC/NFD café", "café", "cafe\u0301"),
+        ("NFC/NFD double acute", "Ő", "O\u030B"),
+    ):
+        nfc = shape(font, composed)
+        nfd = shape(font, decomposed)
+        out.append((
+            label,
+            "PASS" if nfc == nfd else "FAIL",
+            "canonical equivalents produce the same glyph run",
+            f"NFC {nfc}; NFD {nfd}",
+        ))
+
+    ohm = shape(font, "Ω")
+    omega = shape(font, "Ω")
+    mapped = all(
+        name not in {".notdef", "notdef", "gid0"}
+        for output in (ohm, omega)
+        for name in names(output)
+    )
+    out.append((
+        'canonical pair "Ω Ω"',
+        "PASS" if mapped and advances(ohm) == advances(omega) else "FAIL",
+        "both codepoints map and have the same advance",
+        f"OHM {ohm}; OMEGA {omega}",
+    ))
+
+    for feature, text, expectation in (
+        ("ccmp", "i\u0357", "dotless i substitution before an above mark"),
+        ("mark", "q\u0301", "base-to-mark attachment changes the mark offset"),
+        ("mkmk", "q\u0301\u0308", "mark-to-mark attachment stacks the second mark"),
+    ):
+        enabled = shape(font, text, f"+{feature}")
+        disabled = shape(font, text, f"-{feature}")
+        out.append((
+            f'+{feature} "{text}"',
+            "PASS" if enabled != disabled else "FAIL",
+            expectation,
+            f"on {enabled}; off {disabled}",
+        ))
+
     tnum = shape(font, "0123456789", "+tnum", extents=True)
     widths = set(advances(tnum))
     # The reference advance is shaped, not read from hmtx, because a subset
@@ -241,7 +282,7 @@ def main(argv=None):
         else [params.RELEASE_DIR / params.ttf_name(w) for w in params.RELEASE_WEIGHTS]
     )
 
-    lines = ["# Shaping proofs, Buoy v1", "",
+    lines = [f"# Shaping proofs, Buoy v{params.VERSION}", "",
              "Every row is `hb-shape` output, not a table read.", ""]
     failures = 0
     for font in fonts:

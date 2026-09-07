@@ -1,0 +1,1473 @@
+{
+  "command": "fontbakery check-universal release/v1.003/Buoy-Regular-Latin.ttf release/v1.003/Buoy-Medium-Latin.ttf",
+  "counts": {
+    "(not finished)": 0,
+    "FAIL": 4,
+    "INFO": 6,
+    "PASS": 146,
+    "SKIP": 80,
+    "WARN": 6
+  },
+  "checks": [
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.caret_slope",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.caret_slope",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.cff2_call_depth",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.cff2_call_depth",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.cff_ascii_strings",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.cff_ascii_strings",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.cff_call_depth",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.cff_call_depth",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.cff_deprecated_operators",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.cff_deprecated_operators",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.code_pages",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.code_pages",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.dsig",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.dsig",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.family_naming_recommendations",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.family_naming_recommendations",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.font_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.font_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.fsselection",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.fsselection",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.fvar.axis_ranges_correct",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.fvar.axis_ranges_correct",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.fvar.regular_coords_correct",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.fvar.regular_coords_correct",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.gdef_mark_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.gdef_mark_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.gdef_non_mark_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.gdef_non_mark_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.gdef_spacing_marks",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.gdef_spacing_marks",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.glyf_non_transformed_duplicate_components",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.glyf_non_transformed_duplicate_components",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.glyf_unused_data",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.glyf_unused_data",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.italic_angle",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.italic_angle",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.kern_table",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.kern_table",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.layout_valid_feature_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.layout_valid_feature_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.layout_valid_language_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.layout_valid_language_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.layout_valid_script_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.layout_valid_script_tags",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.loca.maxp_num_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.loca.maxp_num_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.mac_style",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.mac_style",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.maxadvancewidth",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.maxadvancewidth",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.monospace",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.monospace",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.name.empty_records",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.name.empty_records",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.name.match_familyname_fullfont",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.name.match_familyname_fullfont",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.name.postscript_name_consistency",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.name.postscript_name_consistency",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.name.postscript_vs_cff",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.name.postscript_vs_cff",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.points_out_of_bounds",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.points_out_of_bounds",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.postscript_name",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.postscript_name",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.post_table_version",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "post-table-version",
+            "message": "Post table format 3 use has niche use case problems.Please review the check rationale for additional details."
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.post_table_version",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "post-table-version",
+            "message": "Post table format 3 use has niche use case problems.Please review the check rationale for additional details."
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.slant_direction",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.slant_direction",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.unitsperem",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.unitsperem",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.unwanted_aat_tables",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.unwanted_aat_tables",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.distinct_instance_records",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.distinct_instance_records",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.foundry_defined_tag_name",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.foundry_defined_tag_name",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.same_size_instance_records",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.same_size_instance_records",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.STAT_axis_record_for_each_axis",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.STAT_axis_record_for_each_axis",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.valid_default_instance_nameids",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.valid_default_instance_nameids",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.varfont.valid_nameids",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.varfont.valid_nameids",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.vendor_id",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.vendor_id",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.weight_class_fvar",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.weight_class_fvar",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "opentype.xavgcharwidth",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "xAvgCharWidth-wrong",
+            "message": "OS/2 xAvgCharWidth is 1309 but it should be 1228 which corresponds to the average of the widths of all glyphs in the font."
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "opentype.xavgcharwidth",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "xAvgCharWidth-wrong",
+            "message": "OS/2 xAvgCharWidth is 1315 but it should be 1243 which corresponds to the average of the widths of all glyphs in the font."
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "superfamily.list",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "superfamily.list",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "superfamily.vertical_metrics",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "superfamily.vertical_metrics",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "alt_caron",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "alt_caron",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "arabic_high_hamza",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "arabic_high_hamza",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "arabic_spacing_symbols",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "arabic_spacing_symbols",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "base_has_width",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "base_has_width",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "caps_vertically_centered",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "caps_vertically_centered",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "case_mapping",
+      "result": "FAIL",
+      "logs": [
+        {
+          "message": {
+            "code": "missing-case-counterparts",
+            "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+2132: TURNED CAPITAL F | U+214E: TURNED SMALL F |\n\n"
+          },
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "case_mapping",
+      "result": "FAIL",
+      "logs": [
+        {
+          "message": {
+            "code": "missing-case-counterparts",
+            "message": "The following glyphs lack their case-swapping counterparts:\n\n| Glyph present in the font | Missing case-swapping counterpart |\n| :--- | :--- |\n| U+2132: TURNED CAPITAL F | U+214E: TURNED SMALL F |\n\n"
+          },
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "cjk_chws_feature",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "cjk_chws_feature",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "cjk_not_enough_glyphs",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "cjk_not_enough_glyphs",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "cmap.format_12",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "cmap.format_12",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "color_cpal_brightness",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "color_cpal_brightness",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "contour_count",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "contour-count",
+            "message": "This check inspects the glyph outlines and detects the total number of contours in each of them. The expected values are infered from the typical ammounts of contours observed in a large collection of reference font families. The divergences listed below may simply indicate a significantly different design on some of your glyphs. On the other hand, some of these may flag actual bugs in the font such as glyphs mapped to an incorrect codepoint. Please consider reviewing the design and codepoint assignment of these to make sure they are correct.\n\nThe following glyphs do not have the recommended number of contours:\n\n\t- Glyph name: Eth\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: aogonek\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: Dcroat\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: dcroat\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: eogonek\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: hbar\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: Lslash\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: lslash\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: oe\tContours detected: 4\tExpected: 3\n\n\t- Glyph name: Tbar\tContours detected: 2\tExpected: 1\n\n\t- 16 more.\n\nUse -F or --full-lists to disable shortening of long lists.\n"
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "contour_count",
+      "result": "WARN",
+      "logs": [
+        {
+          "message": {
+            "code": "contour-count",
+            "message": "This check inspects the glyph outlines and detects the total number of contours in each of them. The expected values are infered from the typical ammounts of contours observed in a large collection of reference font families. The divergences listed below may simply indicate a significantly different design on some of your glyphs. On the other hand, some of these may flag actual bugs in the font such as glyphs mapped to an incorrect codepoint. Please consider reviewing the design and codepoint assignment of these to make sure they are correct.\n\nThe following glyphs do not have the recommended number of contours:\n\n\t- Glyph name: Eth\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: aogonek\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: Dcroat\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: dcroat\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: eogonek\tContours detected: 3\tExpected: 2\n\n\t- Glyph name: hbar\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: Lslash\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: lslash\tContours detected: 2\tExpected: 1\n\n\t- Glyph name: oe\tContours detected: 4\tExpected: 3\n\n\t- Glyph name: Tbar\tContours detected: 2\tExpected: 1\n\n\t- 16 more.\n\nUse -F or --full-lists to disable shortening of long lists.\n"
+          },
+          "status": "WARN"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "control_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "control_chars",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "empty_glyph_on_gid1_for_colrv0",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "empty_glyph_on_gid1_for_colrv0",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "empty_letters",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "empty_letters",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "family.win_ascent_and_descent",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "family.win_ascent_and_descent",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "fvar_name_entries",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "fvar_name_entries",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "file_size",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "file_size",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "fontbakery_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "fontbakery_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "fontdata_namecheck",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "fontdata_namecheck",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "freetype_rasterizer",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "freetype_rasterizer",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "gpos7",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "gpos7",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "gpos_kerning_info",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "gpos_kerning_info",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "hinting_impact",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "hinting_impact",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "inconsistencies_between_fvar_STAT",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "inconsistencies_between_fvar_STAT",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "integer_ppem_if_hinted",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "integer_ppem_if_hinted",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "interpolation_issues",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "interpolation_issues",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "legacy_accents",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "legacy_accents",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "ligature_carets",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "ligature_carets",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "linegaps",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "linegaps",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "mandatory_avar_table",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "mandatory_avar_table",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "mandatory_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "mandatory_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "math_signs_width",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "math_signs_width",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "missing_small_caps_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "missing_small_caps_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "name.char_restrictions",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "name.char_restrictions",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "name.family_and_style_max_length",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "name.family_and_style_max_length",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "name.trailing_spaces",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "name.trailing_spaces",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "name.no_copyright_on_description",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "name.no_copyright_on_description",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "name.italic_names",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "name.italic_names",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "nested_components",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "nested_components",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "no_mac_entries",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "no_mac_entries",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "os2_metrics_match_hhea",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "os2_metrics_match_hhea",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "ots",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "ots",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "overlapping_path_segments",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "overlapping_path_segments",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "required_tables",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "required_tables",
+      "result": "INFO",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "rupee",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "rupee",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "sfnt_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "sfnt_version",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "smallcaps_before_ligatures",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "smallcaps_before_ligatures",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "smart_dropout",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "smart_dropout",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "soft_hyphen",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "soft_hyphen",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "STAT_in_statics",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "STAT_in_statics",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "STAT_strings",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "STAT_strings",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "stylisticset_description",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "stylisticset_description",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "tabular_kerning",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "tabular_kerning",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "transformed_components",
+      "result": "FAIL",
+      "logs": [
+        {
+          "message": {
+            "code": "transformed-components",
+            "message": "The following glyphs had components with scaling or rotation\nor inverted outline direction:\n\n* glyph00025 (component uni0306)\n* glyph00025 (component glyph00969)\n* Ohungarumlaut (component uni030F)\n* Uhungarumlaut (component uni030F)\n* d (component b)\n* dcroat (component b)\n* dcaron (component b)\n* glyph00280 (component b)\n* glyph00281 (component b)\n* dong (component b)\n* ohungarumlaut (component uni030F)\n* q (component p)\n* uhungarumlaut (component uni030F)\n* glyph00444 (component uni030F)\n* quotereversed (component quoteright)\n* uni201F (component quoteright)\n* uni201F (component quoteright)\n* uni204B (component paragraph)\n* arrowright (component arrowleft)\n* glyph00803 (component glyph00799)\n* uni2197 (component uni2196)\n* uni2199 (component uni2196)\n* uni21AA (component uni21A9)\n* glyph00824 (component arrowleft)\n* glyph00825 (component glyph00799)\n* glyph00833 (component uni2196)\n* glyph00835 (component uni2196)\n* glyph00854 (component glyph00858)\n* glyph00854 (component period)\n* glyph00859 (component glyph00858)\n* glyph00860 (component glyph00858)\n* glyph00860 (component glyph00858)\n* uni204F (component quoteright)\n* uni204F (component period)\n"
+          },
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "transformed_components",
+      "result": "FAIL",
+      "logs": [
+        {
+          "message": {
+            "code": "transformed-components",
+            "message": "The following glyphs had components with scaling or rotation\nor inverted outline direction:\n\n* glyph00025 (component uni0306)\n* glyph00025 (component glyph00969)\n* Ohungarumlaut (component uni030F)\n* Uhungarumlaut (component uni030F)\n* d (component b)\n* dcroat (component b)\n* dcaron (component b)\n* glyph00280 (component b)\n* glyph00281 (component b)\n* dong (component b)\n* ohungarumlaut (component uni030F)\n* q (component p)\n* uhungarumlaut (component uni030F)\n* glyph00444 (component uni030F)\n* quotereversed (component quoteright)\n* uni201F (component quoteright)\n* uni201F (component quoteright)\n* uni204B (component paragraph)\n* arrowright (component arrowleft)\n* glyph00803 (component glyph00799)\n* uni2197 (component uni2196)\n* uni2199 (component uni2196)\n* uni21AA (component uni21A9)\n* glyph00824 (component arrowleft)\n* glyph00825 (component glyph00799)\n* glyph00833 (component uni2196)\n* glyph00835 (component uni2196)\n* glyph00854 (component glyph00858)\n* glyph00854 (component period)\n* glyph00859 (component glyph00858)\n* glyph00860 (component glyph00858)\n* glyph00860 (component glyph00858)\n* uni204F (component quoteright)\n* uni204F (component period)\n"
+          },
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "ttx_roundtrip",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "ttx_roundtrip",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "typoascender_exceeds_Agrave",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "typoascender_exceeds_Agrave",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "unique_glyphnames",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "unique_glyphnames",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "unreachable_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "unreachable_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "valid_glyphnames",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "valid_glyphnames",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "varfont.bold_wght_coord",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "varfont.bold_wght_coord",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "varfont.duplexed_axis_reflow",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "varfont.duplexed_axis_reflow",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "varfont.duplicate_instance_names",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "varfont.duplicate_instance_names",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "varfont.instances_in_order",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "varfont.instances_in_order",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "varfont.unsupported_axes",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "varfont.unsupported_axes",
+      "result": "SKIP",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "vtt_volt_data",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "vtt_volt_data",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "whitespace_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "whitespace_glyphs",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "whitespace_ink",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "whitespace_ink",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Regular-Latin.ttf",
+      "check": "whitespace_widths",
+      "result": "PASS",
+      "logs": []
+    },
+    {
+      "file": "Buoy-Medium-Latin.ttf",
+      "check": "whitespace_widths",
+      "result": "PASS",
+      "logs": []
+    }
+  ]
+}

@@ -176,8 +176,8 @@ def css(buoy: dict, rows: list[tuple[dict, dict]]) -> str:
    both cases these overrides do no work.
 
    Both weights share one set of overrides. Regular and Medium have identical
-   vertical metrics and their average widths differ by 1%, which is under the
-   threshold where the swap is visible as a reflow. `font-weight: 400 500`
+   vertical metrics. The recorded Arial sample still differs from Buoy by
+   0.72% in line width, so text near a wrap boundary can reflow. `font-weight: 400 500`
    claims that range so the browser matches Medium to this face instead of
    synthesising a bolder one.
 */"""
